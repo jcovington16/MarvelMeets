@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import axios from 'axios';
+import './Login.css';
 
 const Login = () => {
 
@@ -25,34 +26,35 @@ const Login = () => {
             
     // }
     return (
-        <div>
-            <form>
+        <div className="login__container">
+
+            <div className="login__title">
                 <h3>Sign In</h3>
+            </div>
+            <div className="content">
+                <form>
+                    <div className="login__details">
+                    
+                        <div className="input-box">
+                            <span className="details">Email address</span>
+                            <input type="email" placeholder="Enter email" />
+                        </div>
 
-                <div className="form-group">
-                    <label>Email address</label>
-                    <input type="email" className="form-control" placeholder="Enter email" />
-                </div>
+                        <div className="input-box">
+                            <span className="details">Password</span>
+                            <input type="password"  placeholder="Enter password" />
+                        </div>
 
-                <div className="form-group">
-                    <label>Password</label>
-                    <input type="password" className="form-control" placeholder="Enter password" />
-                </div>
-
-                <div className="form-group">
-                    <div className="custom-control custom-checkbox">
-                        <input type="checkbox" className="custom-control-input" id="customCheck1" />
-                        <label className="custom-control-label" htmlFor="customCheck1">Remember me</label>
+                        <button type="submit" className="btn btn-primary btn-block">Submit</button>
                     </div>
-                </div>
+                    <div>
+                        Don't have an account? <a href="/register">Register</a>
+                    </div>
+                </form>
+            </div>
 
-                <button type="submit" className="btn btn-primary btn-block">Submit</button>
-                <p className="forgot-password text-right">
-                    Forgot <a href="true">password?</a>
-                </p>
-            </form>
         </div>
     )
 }
 
-export default Login
+export default Login;

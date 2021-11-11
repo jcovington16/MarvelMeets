@@ -23,7 +23,7 @@ const Register = () => {
     const handleSubmit = (e) => {
         e.preventDefualt();
         axios.post('http://localhost:5001/api/users/', regform);
-        //window.location='/';
+        window.location='/';
     }
 
 
@@ -131,6 +131,10 @@ const Register = () => {
                     <div className="button">
                         <input type="submit" value="Register"/>
                     </div>
+
+                    <div>
+                        Have an account? <a href="/">Login</a>
+                    </div>
                 </form>
             </div>
             
@@ -139,4 +143,4 @@ const Register = () => {
     )
 }
 
-export default Register
+export default Register;

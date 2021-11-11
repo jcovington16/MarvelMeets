@@ -1,0 +1,60 @@
+.login__container {
+    max-width: 700px;
+    width: 100%;
+    background-color: #fff;
+    padding: 25px 30px;
+    border-radius: 5px;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.15);
+}
+
+.login__container .login__title {
+    font-size: 25px;
+    font-weight: 500;
+    position: relative;
+}
+
+.login__container .login__title::before {
+    content: "";
+    position: absolute;
+    height: 3px;
+    width: 30px;
+    bottom: 0;
+    left: 0;
+    background: linear-gradient(135deg, #71b7e6, #c01f1f );
+}
+
+.content form .login__details {
+    display: block;
+    justify-content: center;
+    margin: 20px 0 20px 0;
+}
+
+form .login__details .input-box {
+    margin-bottom: 15px;
+
+}
+
+.login__details .input-box span.details {
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+.login__details .input-box input {
+    height: 45px;
+    width: 100%;
+    outline: none;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding-left: 15px;
+    
+}
+
+.login__details .input-box input:focus,
+.login__details .input-box input:valid  {
+    border-color: #c01f1f;
+}
+
+form .button {
+    height: 40px;
+    margin: 35px 0;
+}
