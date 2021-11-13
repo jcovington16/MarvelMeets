@@ -1,9 +1,8 @@
 import './App.css';
 import React, {useEffect, useState} from 'react';
-import {Routes, Route} from 'react-router-dom';
+import {Routes, Switch, Route} from 'react-router-dom';
 import mapboxgl from 'mapbox-gl';
 import Map from './components/Map/Map';
-import NavBar from './components/NavBar/NavBar';
 import jwtDecode from 'jwt-decode';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import MainPage from './components/MainPage/MainPage';
@@ -20,6 +19,7 @@ function App() {
 
     try {
       const decode = jwtDecode(jwt);
+      console.log(decode);
       setUser(decode)
 
     } catch {
@@ -27,20 +27,21 @@ function App() {
     }
   }, []);
 
-
   return (
     <div className="App">
+      
       <Routes>
-        <Route path="/home" render={props => {
+        {/* <Route path="/home" render={props => {
           if(user) {
             return <MainPage {...props} user={user} />
           } else {
             return <Route element={<Login/>}/>
           }
         }}
-        />
+        /> */}
+        <Route path="/home" element={<MainPage user={user} />} />
         <Route path='/register' element={<Register/>} />
-        <Route path='/' exact element={<Login/>} />
+        <Route path='/' exact element={<Login user={user}/>} />
 
       </Routes>
     </div>

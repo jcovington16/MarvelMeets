@@ -14,17 +14,17 @@ const Login = () => {
         },[]);
       }
 
-    // const handleSubmit = (event) =>  {
-    //     // store the states in the form data
-    //     event.preventDefault();
-    //     axios.post('http://localhost:5001/api/auth/', login)
-    //         .then (response => {
-    //             const responseData = response.data
-    //             localStorage.setItem('token', responseData);
-    //             window.location='/home';              
-    //         })
+    const handleSubmit = (event) =>  {
+        // store the states in the form data
+        event.preventDefault();
+        axios.post('http://localhost:5001/api/auth/', login)
+            .then (response => {
+                const responseData = response.data
+                localStorage.setItem('token', responseData);
+                window.location='/home';              
+            })
             
-    // }
+    }
     return (
         <div className="login__container">
 
@@ -32,17 +32,17 @@ const Login = () => {
                 <h3>Sign In</h3>
             </div>
             <div className="content">
-                <form>
+                <form onSubmit={handleSubmit}>
                     <div className="login__details">
                     
                         <div className="input-box">
                             <span className="details">Email address</span>
-                            <input type="email" placeholder="Enter email" />
+                            <input type="email" placeholder="Enter email" name="email" value={login.email} onChange={handleChange}/>
                         </div>
 
                         <div className="input-box">
                             <span className="details">Password</span>
-                            <input type="password"  placeholder="Enter password" />
+                            <input type="password"  placeholder="Enter password" name="password" value={login.password} onChange={handleChange}/>
                         </div>
 
                         <button type="submit" className="btn btn-primary btn-block">Submit</button>

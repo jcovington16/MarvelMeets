@@ -10,7 +10,10 @@ const Register = () => {
         lastname: "",
         email: "",
         username: "",
-        password: ""
+        password: "",
+        city: "",
+        state: "",
+        favhero: ""
 
     });
 
@@ -21,8 +24,18 @@ const Register = () => {
     }
 
     const handleSubmit = (e) => {
-        e.preventDefualt();
-        axios.post('http://localhost:5001/api/users/', regform);
+        e.preventDefault();
+        console.log(regform);
+        const newObj = {
+            firstname:regform.firstname,
+            lastname: regform.lastname,
+            email: regform.email,
+            username: regform.username,
+            password: regform.password,
+            state: regform.state,
+            favhero: regform.favhero}
+
+        axios.post('http://localhost:5001/api/users/', newObj)
         window.location='/';
     }
 
@@ -35,35 +48,35 @@ const Register = () => {
                 <h3>Register</h3>
             </div>
             <div className="content">
-                <form action="">
+                <form onSubmit={(e) => handleSubmit(e)}>
                     <div className="register__details">
                         <div className="input-box">
                             <span className="details">First name</span>
-                            <input type="text" placeholder="First name"/>
+                            <input type="text" placeholder="First name" name="firstname" value={regform.firstname} onChange={handleChange}/>
                         </div>
                         <div className="input-box">
                             <span className="details">Last name</span>
-                            <input type="text" placeholder="Last name"/>
+                            <input type="text" placeholder="Last name" name="lastname" value={regform.lastname} onChange={handleChange}/>
                         </div>
                         <div className="input-box">
                             <span className="details">Email Address</span>
-                            <input type="text" placeholder="Email Address"/>
+                            <input type="email" placeholder="Email Address" name="email" value={regform.email} onChange={handleChange}/>
                         </div>
                         <div className="input-box">
                             <span className="details">Username</span>
-                            <input type="text" placeholder="Username"/>
+                            <input type="text" placeholder="Username" name="username" value={regform.username} onChange={handleChange}/>
                         </div>
                         <div className="input-box">
                             <span className="details">Password</span>
-                            <input type="text" placeholder="Password"/>
+                            <input type="password" placeholder="Password" name="password" value={regform.password} onChange={handleChange}/>
                         </div>
                         <div className="input-box">
                             <span className="details">City</span>
-                            <input type="text" placeholder="City"/>
+                            <input type="text" placeholder="City" name="city" value={regform.city} onChange={handleChange}/>
                         </div>
                         <div className="select-box">
                             <span className="selector">State</span>
-                            <select name="state" id="state" >
+                            <select name="state" id="state" value={regform.state} onChange={handleChange}>
                                 <option value="Alabama">Alabama</option>
                                 <option value="Alaska">Alaska</option>
                                 <option value="Arizona">Arizona</option>
@@ -119,17 +132,31 @@ const Register = () => {
                         
                         <div className="select-box">
                             <span className="selector">Favorite Hero</span>
-                            <select name="hero" id="hero">
-                                <option value="SpiderMan">SpiderMan</option>
+                            <select name="favhero" id="favhero" value={regform.favhero} onChange={handleChange}>
+                                <option value="SpiderMan">Spider Man</option>
                                 <option value="Hulk">Hulk</option>
                                 <option value="Dr. Strange">Dr. Strange</option>
                                 <option value="Thor">Thor</option>
+                                <option value="Iron Man">Iron Man</option>
+                                <option value="Black Panther">Black Panther</option>
+                                <option value="Ant-Man">Ant-Man</option>
+                                <option value="Captain America">Captain America</option>
+                                <option value="Deadpool">Deadpool</option>
+                                <option value="Captain Marvel">Captain Marvel</option>
+                                <option value="Wolverine">Wolverine</option>
+                                <option value="Luke Cage">Luke Cage</option>
+                                <option value="Guardians Of The Galaxy">Guardians Of The Galaxy</option>
+                                <option value="Black Widow">Black Widow</option>
+                                <option value="Vision">Vision</option>
+                                <option value="Wanda">Wanda</option>
+                                <option value="Hawk Eye">Hawk Eye</option>
                             </select>
                         </div>
 
                     </div>
                     <div className="button">
-                        <input type="submit" value="Register"/>
+                        {/* <input type="submit" value="Register"/> */}
+                        <button type="submit" className="btn btn-primary btn-block">Submit</button>
                     </div>
 
                     <div>

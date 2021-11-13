@@ -1,11 +1,12 @@
 import React from 'react';
 import Nav from 'react-bootstrap/Nav';
+import './NavBar.css';
 
-const NavBar = () => {
+const NavBar = ({user}) => {
     return (
         <Nav>
             <Nav.Item>
-                <Nav.Link></Nav.Link>
+                <Nav.Link>Home</Nav.Link>
             </Nav.Item>
         </Nav>
     )
