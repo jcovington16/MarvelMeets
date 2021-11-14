@@ -8,18 +8,19 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import MainPage from './components/MainPage/MainPage';
 import Login from './components/Login/Login';
 import Register from './components/Register/Register';
+import Events from './components/Events/Events';
+import Heroes from './components/Heroes/Heroes';
 
 
 function App() {
 
-  const [user, setUser] = useState();
+  const [user, setUser] = useState('');
 
   useEffect(() => {
     const jwt = localStorage.getItem('token');
 
     try {
       const decode = jwtDecode(jwt);
-      console.log(decode);
       setUser(decode)
 
     } catch {
@@ -42,6 +43,9 @@ function App() {
         <Route path="/home" element={<MainPage user={user} />} />
         <Route path='/register' element={<Register/>} />
         <Route path='/' exact element={<Login user={user}/>} />
+        <Route path='/events' element={<Events user={user}/>} />
+        <Route path='/heroes' element={<Heroes user={user}/>} />
+
 
       </Routes>
     </div>

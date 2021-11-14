@@ -4,9 +4,22 @@ import NavBar from '../NavBar/NavBar';
 const MainPage = ({user}) => {
     return (
         <div>
-            <NavBar user={user}/>
-            Main Page
-            <p>Welcome {user.firstname}</p>
+            <div>
+                <NavBar user={user}/>
+            </div>
+            <div>
+                Welcome {user.firstname}
+            </div>
+
+            <div>
+                Map
+            </div>
+
+            <div>
+                Form
+            </div>
+
+            
 
         </div>
     )
