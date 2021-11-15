@@ -1,0 +1,10 @@
+.mainpage__map {
+    display: flex;
+    justify-content: center;
+}
+
+.mainpage__form {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 20px;
+}

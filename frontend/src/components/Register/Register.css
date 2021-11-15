@@ -1,10 +1,10 @@
-/* .container {
+.container {
     display: flex;
     height: 80vh;
     justify-content: center;
     align-items: center;
-    padding: 10px;
-} */
+    margin-top: 40px;
+}
 
 .register__container{
     max-width: 700px;

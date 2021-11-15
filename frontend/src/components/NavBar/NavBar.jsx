@@ -17,10 +17,20 @@ function NavBar({ user }) {
                     <Link to="/heroes">Heroes</Link>
                 </li>
                 {user && <div>
-                    <li>
-                        {user.firstname}
+                    <li className="dropdown">
+                        <a href="true" className="dropdown-toggle"><span>{user.firstname}</span></a>
+                        <ul className="dropdown-menu">
+                            <li>
+                                <a href="/events">Add Event</a>
+                            </li>
+                            <li>
+                                <a href="true">Profile</a>
+                            </li>
+                            <li>
+                                <a href="/logout">Logout</a>
+                            </li>
+                        </ul>
                     </li>
-                    
                 </div>}
             </ul>
         </div>

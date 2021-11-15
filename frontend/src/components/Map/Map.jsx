@@ -1,9 +1,12 @@
 import React, { useRef, useEffect, useState }  from "react";
 import mapboxgl from "mapbox-gl";
 import './Map.css';
+import data from '../../config/Config'
 
 
 const Map = () => {
+
+    mapboxgl.accessToken = data.mapBoxToken
 
     const mapContainer = useRef(null);
     const map = useRef(null);

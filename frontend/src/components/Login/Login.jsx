@@ -26,33 +26,35 @@ const Login = () => {
             
     }
     return (
-        <div className="login__container">
+        <div className="container">
+            <div className="login__container">
 
-            <div className="login__title">
-                <h3>Sign In</h3>
-            </div>
-            <div className="content">
-                <form onSubmit={handleSubmit}>
-                    <div className="login__details">
-                    
-                        <div className="input-box">
-                            <span className="details">Email address</span>
-                            <input type="email" placeholder="Enter email" name="email" value={login.email} onChange={handleChange}/>
+                <div className="login__title">
+                    <h3>Sign In</h3>
+                </div>
+                <div className="content">
+                    <form onSubmit={handleSubmit}>
+                        <div className="login__details">
+                        
+                            <div className="input-box">
+                                <span className="details">Email address</span>
+                                <input type="email" placeholder="Enter email" name="email" value={login.email} onChange={handleChange}/>
+                            </div>
+
+                            <div className="input-box">
+                                <span className="details">Password</span>
+                                <input type="password"  placeholder="Enter password" name="password" value={login.password} onChange={handleChange}/>
+                            </div>
+
+                            <button type="submit" className="btn btn-primary btn-block">Submit</button>
                         </div>
-
-                        <div className="input-box">
-                            <span className="details">Password</span>
-                            <input type="password"  placeholder="Enter password" name="password" value={login.password} onChange={handleChange}/>
+                        <div>
+                            Don't have an account? <a href="/register">Register</a>
                         </div>
+                    </form>
+                </div>
 
-                        <button type="submit" className="btn btn-primary btn-block">Submit</button>
-                    </div>
-                    <div>
-                        Don't have an account? <a href="/register">Register</a>
-                    </div>
-                </form>
             </div>
-
         </div>
     )
 }
