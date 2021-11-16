@@ -1,13 +1,5 @@
-.navbar {
-    height: 15vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 10px;
-    
-}
-
 .navbar__links {
+    height: 10vh;
     display: flex;
     align-items: center;
     justify-content: center;

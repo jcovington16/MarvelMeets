@@ -1,7 +1,6 @@
 import './App.css';
 import React, {useEffect, useState} from 'react';
 import {Routes, Route} from 'react-router-dom';
-import mapboxgl from 'mapbox-gl';
 import jwtDecode from 'jwt-decode';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import MainPage from './components/MainPage/MainPage';
@@ -29,7 +28,7 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
+    <div className="container-fluid">
       
       <Routes>
         {/* <Route path="/home" render={props => {
