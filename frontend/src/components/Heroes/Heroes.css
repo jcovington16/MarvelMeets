@@ -1,8 +1,0 @@
-.hero__search {
-    display: block;
-    justify-content: center;
-}
-
-.hero__search form > input {
-    border-radius: 5px;
-}
