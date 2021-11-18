@@ -6,9 +6,10 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import MainPage from './components/MainPage/MainPage';
 import Login from './components/Login/Login';
 import Register from './components/Register/Register';
-import Events from './components/Events/Events';
+import EventsCreate from './components/EventsCreate/EventCreate';
 import Heroes from './components/Heroes/Heroes';
 import Logout from './components/Logout/Logout';
+
 
 
 function App() {
@@ -20,7 +21,7 @@ function App() {
 
     try {
       const decode = jwtDecode(jwt);
-      setUser(decode)
+      setUser(decode);
 
     } catch {
 
@@ -31,18 +32,12 @@ function App() {
     <div className="container-fluid">
       
       <Routes>
-        {/* <Route path="/home" render={props => {
-          if(user) {
-            return <MainPage {...props} user={user} />
-          } else {
-            return <Route element={<Login/>}/>
-          }
-        }}
-        /> */}
+
+
         <Route path="/home" element={<MainPage user={user} />} />
         <Route path='/register' element={<Register/>} />
         <Route path='/' exact element={<Login user={user}/>} />
-        <Route path='/events' element={<Events user={user}/>} />
+        <Route path='/events' element={<EventsCreate user={user}/>} />
         <Route path='/heroes' element={<Heroes user={user}/>} />
         <Route path='/logout' element={<Logout/>} />
 

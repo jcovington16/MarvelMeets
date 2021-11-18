@@ -17,21 +17,22 @@ const userSchema = new mongoose.Schema({
 })
 
 userSchema.methods.generateAuthToken = function() {
-    return jwt.sign({_id: this._id, firstname: this.firstname, lastname: this.lastname, email: this.email}, config.get('jwtSecret'));
+    return jwt.sign({_id: this._id, firstname: this.firstname, lastname: this.lastname, email: this.email, city: this.city}, config.get('jwtSecret'));
 }
 
 const User = mongoose.model('User', userSchema);
 
 function validateUser(user) {
     const schema = Joi.object({
+        city: Joi.string().required(),
+        email: Joi.string().min(5).max(50).required().email(),
+        favhero: Joi.string().required(),
         firstname: Joi.string().min(4).max(50).required(),
         lastname: Joi.string().min(4).max(50).required(),
-        email: Joi.string().min(5).max(50).required().email(),
-        username: Joi.string().min(5).max(50),
         password: Joi.string().min(5).max(1024).required(),
-        city: Joi.string().required(),
         state: Joi.string().required(),
-        favhero: Joi.string().required()   
+        username: Joi.string().min(5).max(50),
+           
 
     });
     return schema.validate(user);

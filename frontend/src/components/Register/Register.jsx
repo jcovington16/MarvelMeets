@@ -32,10 +32,11 @@ const Register = () => {
             email: regform.email,
             username: regform.username,
             password: regform.password,
+            city: regform.city,
             state: regform.state,
             favhero: regform.favhero}
 
-        axios.post('http://localhost:5001/api/users/', newObj)
+        axios.post('http://localhost:5001/api/users/', newObj);
         window.location='/';
     }
 
@@ -155,7 +156,6 @@ const Register = () => {
 
                         </div>
                         <div className="button">
-                            {/* <input type="submit" value="Register"/> */}
                             <button type="submit" className="btn btn-primary btn-block">Submit</button>
                         </div>
 

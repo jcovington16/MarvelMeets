@@ -28,17 +28,14 @@ const Heroes = ({user}) => {
         e.preventDefault();
         axios.get(`${url}name=${character}&ts=${ts}&apikey=${pk}&hash=${hash}`)
             .then(res => {
-                console.log(res.data.data.results[0])
                 setCharacterInfo(res.data.data.results[0])
                 const id = res.data.data.results[0].id
                 axios.get(`${url2}${id}/comics?limit=15&ts=${ts}&apikey=${pk}&hash=${hash}`)
                     .then(res => {
-                        console.log(res.data.data.results)
                         setCharacterComics(res.data.data.results)
                     })
             })
     }
-
 
     return (
         <div>
@@ -107,9 +104,6 @@ const Heroes = ({user}) => {
 
                 </div>}
             </div>}
-
-
-
 
         </div>
     )

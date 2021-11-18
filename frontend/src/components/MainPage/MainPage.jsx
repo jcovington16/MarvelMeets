@@ -1,9 +1,13 @@
 import React from 'react';
 import './MainPage.css';
 import NavBar from '../NavBar/NavBar';
+import Countdown from '../Countdown/Countdown';
 import Map from '../Map/Map';
+import Events from '../Events/Events';
+
 
 const MainPage = ({user}) => {
+
     return (
         <div>
             <div>
@@ -11,6 +15,10 @@ const MainPage = ({user}) => {
             </div>
             <div>
                 Welcome {user.firstname}
+            </div>
+
+            <div>
+                <Countdown />
             </div>
 
             <div className="row">
@@ -53,11 +61,11 @@ const MainPage = ({user}) => {
 
 
                         <div className="mainpage__map">
-                            <Map />
+                            <Map user={user}/>
                         </div>
 
                         <div>
-                            Latest Events
+                            <Events />
                         </div>
 
                     </div>

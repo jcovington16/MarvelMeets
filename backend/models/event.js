@@ -1,7 +1,5 @@
-const mongoose = require('mogoose');
+const mongoose = require('mongoose');
 const Joi = require('joi');
-const config = require('config');
-const jwt = require('jsonwebtoken');
 
 
 const eventSchema = new mongoose.Schema({
@@ -12,7 +10,8 @@ const eventSchema = new mongoose.Schema({
     city: {type: String},
     address: {type: String},
     attendees: {type: Number, default: 0},
-    created: {type: Date, default: Date.now}
+    event_date: {type: Date},
+    created: {type: Date, default: Date.now()}
     
 })
 
@@ -20,10 +19,11 @@ const Event = mongoose.model('Event', eventSchema);
 
 function validateEvent(event) {
     const Schema = Joi.object({
-        userId: Joi.string().required(),
         title: Joi.string().required().min(4).max(100),
+        topic: Joi.string().required().min(4).max(100),
         city: Joi.string().required(),
-        address: Joi.string().required()
+        address: Joi.string().required(),
+        event_date: Joi.date()
     });
     return Schema.validate(event)
 

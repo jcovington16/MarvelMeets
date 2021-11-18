@@ -1,21 +1,27 @@
 import React, { useRef, useEffect, useState }  from "react";
 import mapboxgl from "mapbox-gl";
 import './Map.css';
-import data from '../../config/Config'
+import data from '../../config/Config';
+import axios from 'axios';
 
 
-const Map = () => {
+const Map = ({user}) => {
 
     mapboxgl.accessToken = data.mapBoxToken
 
     const mapContainer = useRef(null);
     const map = useRef(null);
-    const [lng, setLng] = useState(-70.9);
-    const [lat, setLat] = useState(42.35);
+    const [lng, setLng] = useState(0);
+    const [lat, setLat] = useState(0);
     const [zoom, setZoom] = useState(9);
 
     useEffect(() => {
-        if (map.current) return; // initialize map only once
+        //if (map.current) return; // initialize map only once
+        axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${user.city}.json?access_token=${data.mapBoxToken}`)
+            .then(res => {
+                setLng(res.data.features[0].center[0])
+                setLat(res.data.features[0].center[1])
+            })
         map.current = new mapboxgl.Map({
             container: mapContainer.current,
             style: 'mapbox://styles/mapbox/streets-v11',

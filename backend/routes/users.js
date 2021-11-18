@@ -17,14 +17,15 @@ router.post('/', async (req, res) => {
 
         const salt = await bcrypt.genSalt(10);
         user = new User({
-          firstname: req.body.firstname,
-          lastname: req.body.lastname,
-          email: req.body.email,
-          username: req.body.username,
-          password: await bcrypt.hash(req.body.password, salt),
-          city: req.body.city,
-          state: req.body.state,
-          favhero: req.body.favhero
+            city: req.body.city,
+            email: req.body.email,
+            favhero: req.body.favhero,
+            firstname: req.body.firstname,
+            lastname: req.body.lastname,
+            password: await bcrypt.hash(req.body.password, salt),
+            state: req.body.state,
+            username: req.body.username,
+            
 
     });
 
