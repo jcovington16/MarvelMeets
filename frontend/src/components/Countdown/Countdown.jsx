@@ -4,7 +4,7 @@ import axios from 'axios';
 const Countdown = () => {
 
     const [mcumovie, setMCUMovie] = useState();
-    const [mcuDate, setMCUDate] = useState()
+    const [mcuDate, setMCUDate] = useState();
 
     useEffect(() => {
         axios.get('https://www.whenisthenextmcufilm.com/api')

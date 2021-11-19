@@ -19,11 +19,13 @@ const Event = mongoose.model('Event', eventSchema);
 
 function validateEvent(event) {
     const Schema = Joi.object({
+        address: Joi.string().required(),
+        city: Joi.string().required(),
+        description: Joi.string(),
+        event_date: Joi.date(),
         title: Joi.string().required().min(4).max(100),
         topic: Joi.string().required().min(4).max(100),
-        city: Joi.string().required(),
-        address: Joi.string().required(),
-        event_date: Joi.date()
+        
     });
     return Schema.validate(event)
 

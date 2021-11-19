@@ -12,13 +12,14 @@ router.post('/:_id/events', async (req, res) => {
         if(error) return res.status(400).send(`Error: ${error.details[0].message}`);
 
         const event = await new Event ({
-            userId: req.params._id,
+            address: req.body.address,
+            city: req.body.city,
+            description: req.body.description,
+            event_date: req.body.event_date,
             title: req.body.title,
             topic: req.body.topic,
-            city: req.body.city,
-            address: req.body.address,
-            event_date: req.body.event_date
-
+            userId: req.params._id
+            
         });
 
         await event.save();
@@ -62,16 +63,16 @@ router.get('/', async (req, res) => {
 })
 
 //search for event
-router.get('/:_id/events', async (req, res) => {
+// router.get('/:_id/events', async (req, res) => {
 
-})
+// })
 
 
 
 //delete event only by original user who made the post
-router.delete('/:_id/events', async(req, res) => {
+router.delete('/', async(req, res) => {
     try {
-        const event = await Event.findByIdAndDelete(req.params._id);
+        const event = await Event.findOneAndDelete(req.body._id);
 
         if(!event) {
             return res.status(400).send('No Events to delete');

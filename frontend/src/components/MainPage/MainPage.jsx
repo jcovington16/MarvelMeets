@@ -64,7 +64,7 @@ const MainPage = ({user}) => {
                             <Map user={user}/>
                         </div>
 
-                        <div>
+                        <div className="mainpage__events">
                             <Events />
                         </div>
 
