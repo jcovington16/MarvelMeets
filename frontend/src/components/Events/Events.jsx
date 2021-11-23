@@ -13,6 +13,13 @@ const Events = ({user}) => {
             })
     }, [])
 
+    const handleRegistration = (e) => {
+        e.preventDefault();
+        if(user) {
+            axios.put(`http://localhost:5001/api/events/${user._id}/register`);
+        }
+    }
+
 
     return (
         <div className="mt-5 justify-content-center">
@@ -20,8 +27,8 @@ const Events = ({user}) => {
 
             {events.map((info) => {
                 return (
-                    <div className="row mt-4" key={info._id}>
-                        <div className="col-md-3">
+                    <div className="row mt-4" key={info._id} style={{margin: "5px"}}>
+                         <div className="col-md-3">
                             <div className="card" style={{width: '20rem'}}>
                                 <img src="..." alt="..." className="card-img-top" />
                                 <div className="card-body">
@@ -30,10 +37,11 @@ const Events = ({user}) => {
                                     <hr />
                                     <p className="card-text">{info.event_date}</p>
                                     <a href="True" className="btn btn-primary">See Event Details</a>
+                                    <button className="btn btn-primary" style={{margin: "3px"}} onClick={handleRegistration}>Register</button>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                </div>
                 )
             })}
         </div>
@@ -42,27 +50,3 @@ const Events = ({user}) => {
 
 export default Events;
 
-
-//     return (
-//         <div className="mt-5 justify-content-center">
-//             <h2>Latest Events</h2>
-
-//             {events && <div className="row mt-4">
-//                 <div className="col-md-3">
-//                     <div className="card" style={{width: '20rem'}}>
-//                         <img src="..." className="card-img-top" alt="..." />
-//                         <div className="card-body">
-//                             <h5 className="card-title">{events[2].title}</h5>
-//                             <p className="card-text">{events[2].description}</p>
-//                             <hr />
-//                             <p className="card-text">{events[2].event_date}</p>
-//                             <a href="..." className="btn btn-primary">See Event Details</a>
-//                         </div>
-//                     </div>
-//                 </div>
-//             </div>}
-//         </div>
-//     )
-// }
-
-// export default Events;

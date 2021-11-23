@@ -12,7 +12,7 @@ function NavBar({ user }) {
                         <Link to="/home">Home</Link>
                     </li>
                     <li>
-                        <Link to="/events">Events</Link>
+                        <Link to="/events">Create Event</Link>
                     </li>
                     <li>
                         <Link to="/heroes">Heroes</Link>
@@ -25,7 +25,7 @@ function NavBar({ user }) {
                                     <a href="/events">Add Event</a>
                                 </li>
                                 <li>
-                                    <a href="true">Profile</a>
+                                    <a href="/profile_page">Profile</a>
                                 </li>
                                 <li>
                                     <a href="/logout">Logout</a>

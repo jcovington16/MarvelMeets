@@ -11,7 +11,8 @@ const eventSchema = new mongoose.Schema({
     address: {type: String},
     attendees: {type: Number, default: 0},
     event_date: {type: Date},
-    created: {type: Date, default: Date.now()}
+    created: {type: Date, default: Date.now()},
+    user_list: {type: [], default: []}
     
 })
 

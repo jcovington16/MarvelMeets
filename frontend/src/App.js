@@ -9,6 +9,8 @@ import Register from './components/Register/Register';
 import EventsCreate from './components/EventsCreate/EventCreate';
 import Heroes from './components/Heroes/Heroes';
 import Logout from './components/Logout/Logout';
+import EventPage from './components/EventPage/EventPage';
+import Profile from './components/Profile/Profile';
 
 
 
@@ -35,11 +37,13 @@ function App() {
 
 
         <Route path="/home" element={<MainPage user={user} />} />
-        <Route path='/register' element={<Register/>} />
+        <Route path='/register' element={<Register />} />
         <Route path='/' exact element={<Login user={user}/>} />
         <Route path='/events' element={<EventsCreate user={user}/>} />
         <Route path='/heroes' element={<Heroes user={user}/>} />
         <Route path='/logout' element={<Logout/>} />
+        <Route path='/event_page' element={<EventPage user={user}/>} />
+        <Route path='/profile_page' element={<Profile user={user}/>} />
 
 
       </Routes>

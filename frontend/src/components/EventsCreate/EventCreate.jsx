@@ -22,7 +22,8 @@ const EventsCreate = ({user}) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(eventform)
-        axios.post(`http://localhost:5001/api/events/${user._id}/events`, eventform);
+        axios.post(`http://localhost:5001/api/events/${user._id}/events`, eventform)
+        window.location = '/home'
 
     }
 
@@ -34,7 +35,7 @@ const EventsCreate = ({user}) => {
                 <NavBar user={user}/>
             </div>
             
-            <div className="row">
+            <div className="row mb-4">
 
                 <div className="col-md-3"></div>
 

@@ -1,4 +1,5 @@
 const {Event, validateEvent} = require('../models/event');
+const {User} = require('../models/user');
 const express = require('express');
 const router = express.Router();
 const auth = require('../middleware/auth');
@@ -18,8 +19,9 @@ router.post('/:_id/events', async (req, res) => {
             event_date: req.body.event_date,
             title: req.body.title,
             topic: req.body.topic,
-            userId: req.params._id
-            
+            userId: req.params._id,
+            user_list: req.params.user_list
+
         });
 
         await event.save();
@@ -33,9 +35,15 @@ router.post('/:_id/events', async (req, res) => {
 //register for event
 router.put('/:_id/register', async (req, res) => {
     try{
-        const event = await Event.findById(req.param._id)
+        const event = await Event.findById(req.body._id)
+        const user = await User.findById(req.params._id)
 
-        event.attendees += 1
+        if(event.user_list.includes(user)) {
+            return res.send('User is already registered to Event')
+        } else {
+            event.attendees += 1
+            event.user_list.push(user)
+        }
 
         await event.save();
         return res.send(event);

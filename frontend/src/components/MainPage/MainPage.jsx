@@ -64,8 +64,8 @@ const MainPage = ({user}) => {
                             <Map user={user}/>
                         </div>
 
-                        <div className="mainpage__events">
-                            <Events />
+                        <div className="d-flex justify-content-center">
+                            <Events user={user}/>                   
                         </div>
 
                     </div>
