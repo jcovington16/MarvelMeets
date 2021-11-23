@@ -59,7 +59,7 @@ const Heroes = ({user}) => {
             {characterInfo && <div>
                 <div className="row mt-5">
                     <div className="col-md-6">
-                        <img src={characterInfo.thumbnail} alt="Hero Pic" />
+                        <img src={`${characterInfo.thumbnail.path}.${characterInfo.thumbnail.extension}`} alt="Hero Pic" />
                     </div>
 
                     <div className="col-md-6">
@@ -71,18 +71,7 @@ const Heroes = ({user}) => {
 
                     <div className="col-md-4">
                         <div className="card" style={{width: '30rem'}}>
-                            <img src="..." className="card-img-top" alt="Comic Pic"/>
-                            <div className="card-body">
-                                <h5 className="card-title">{characterComics[0].title}</h5>
-                                <p className="card-text">{characterComics[0].description}</p>
-                                <a href={characterComics[0].urls[0].url} className="btn btn-primary">See Comic Book</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="col-md-4">
-                        <div className="card" style={{width: '30rem'}}>
-                            <img src="..." className="card-img-top" alt="Comic Pic"/>
+                            <img src={`${characterComics[1].images[0].path}.${characterComics[1].images[0].extension}`} className="card-img-top" alt="Comic Pic"/>
                             <div className="card-body">
                                 <h5 className="card-title">{characterComics[1].title}</h5>
                                 <p className="card-text">{characterComics[1].description}</p>
@@ -93,7 +82,18 @@ const Heroes = ({user}) => {
 
                     <div className="col-md-4">
                         <div className="card" style={{width: '30rem'}}>
-                            <img src="..." className="card-img-top" alt="Comic Pic"/>
+                            <img src={`${characterComics[2].images[0].path}.${characterComics[2].images[0].extension}`} className="card-img-top" alt="Comic Pic"/>
+                            <div className="card-body">
+                                <h5 className="card-title">{characterComics[2].title}</h5>
+                                <p className="card-text">{characterComics[2].description}</p>
+                                <a href={characterComics[2].urls[0].url} className="btn btn-primary">See Comic Book</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="col-md-4">
+                        <div className="card" style={{width: '30rem'}}>
+                            <img src={`${characterComics[9].images[0].path}.${characterComics[9].images[0].extension}`} className="card-img-top" alt="Comic Pic"/>
                             <div className="card-body">
                                 <h5 className="card-title">{characterComics[9].title}</h5>
                                 <p className="card-text">{characterComics[9].description}</p>

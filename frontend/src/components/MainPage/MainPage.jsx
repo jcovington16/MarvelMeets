@@ -1,3 +1,4 @@
+//import React, {useState} from 'react';
 import React from 'react';
 import './MainPage.css';
 import NavBar from '../NavBar/NavBar';
@@ -7,6 +8,18 @@ import Events from '../Events/Events';
 
 
 const MainPage = ({user}) => {
+
+    // const [searchForm, setSearchForm] = useState({
+    //     topic: "",
+    //     hero: "",
+    //     city: "",
+    //     event_date: ""
+    // })
+
+    // const handleSearch = (e) => {
+    //     e.preventDefault()
+
+    // }
 
     return (
         <div>
