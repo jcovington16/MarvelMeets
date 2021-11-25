@@ -13,7 +13,7 @@ const Countdown = () => {
                 const date = new Date(res.data.following_production.release_date).getTime()
                 setMCUDate(date)
             })
-    })
+    }, [])
 
     const count = setInterval(() => {
         const now = new Date().getTime();

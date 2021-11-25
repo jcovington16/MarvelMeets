@@ -5,7 +5,7 @@ const EventPage = ({user}) => {
     return (
         <div>
             <div>
-                <NavBar />
+                <NavBar user={user}/>
             </div>
             Events Page
         </div>

@@ -38,11 +38,15 @@ router.put('/:_id/register', async (req, res) => {
         const event = await Event.findById(req.body._id)
         const user = await User.findById(req.params._id)
 
-        if(event.user_list.includes(user)) {
+        if(user._id === event.userId) {
+            return res.send('You can register for your own event');
+        }
+
+        if(event.user_list.includes(user._id)) {
             return res.send('User is already registered to Event')
         } else {
             event.attendees += 1
-            event.user_list.push(user)
+            event.user_list.push(user._id)
         }
 
         await event.save();
@@ -65,15 +69,25 @@ router.get('/', async (req, res) => {
             return res.send(events)
         }
 
-    } catch (ex) {
-        return res.status(500).send(`Internal Server Error: ${ex}`)
+    } catch (err) {
+        return res.status(500).send(`Internal Server Error: ${err}`)
     }
 })
 
 //search for event
-// router.get('/:_id/events', async (req, res) => {
+router.get('/:_id/event', async (req, res) => {
+    try {
+        const event = await Event.findById(req.params._id);
 
-// })
+        if(!event) {
+            return res.status(404).send('Event not found');
+        } else {
+            return res.send(event)
+        }
+    } catch (err) {
+        return res.status(500).send(`Internal Server Error: ${err}`)
+    }
+})
 
 
 
