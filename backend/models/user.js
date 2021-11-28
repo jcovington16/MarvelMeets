@@ -13,7 +13,10 @@ const userSchema = new mongoose.Schema({
     city: {type: String, default:''},
     state: {type: String, default:''},
     favhero: {type: String, default:''},
-    dateJoined: {type: Date, default: Date.now()}
+    dateJoined: {type: Date, default: Date.now()},
+    phone_number: {type: String, default: ''},
+    photo: {data: Buffer, contentType: String},
+    bio: {type: String, default: ''}
 })
 
 userSchema.methods.generateAuthToken = function() {

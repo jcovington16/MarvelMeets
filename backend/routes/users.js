@@ -45,4 +45,34 @@ router.post('/', async (req, res) => {
 });
 
 
+router.get('/:_id/profile', async (req, res) => {
+    const user = await User.findById(req.params._id)
+
+    if(!user) return res.status(400).send('No User profile with that ID')
+    return res.send(user);
+});
+
+
+router.put('/:_id/profile', async(req, res) => {
+    try{
+        const user = await User.findByIdAndUpdate(req.params._id,
+            {firstname: req.body.firstname,
+             lastname: req.body.lastname,
+             email: req.body.email,
+             city: req.body.city,
+             state: req.body.state,
+             favhero: req.body.favhero,
+             photo: req.body.photo}, 
+             {new: true}
+        );
+
+        if(!user) return res.status(400).send(`The user with id ${req.params.id} does not exist.`)
+        await user.save();
+        return res.send(user);
+
+    } catch (err) {
+        return res.send(500).send(`Internal Server Error: ${err}`)
+    }
+});
+
 module.exports = router;

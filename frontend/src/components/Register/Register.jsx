@@ -13,7 +13,8 @@ const Register = () => {
         password: "",
         city: "",
         state: "",
-        favhero: ""
+        favhero: "",
+        phone_number: ""
 
     });
 
@@ -34,7 +35,8 @@ const Register = () => {
             password: regform.password,
             city: regform.city,
             state: regform.state,
-            favhero: regform.favhero}
+            favhero: regform.favhero,
+            phone_number: regform.phone_number}
 
         axios.post('http://localhost:5001/api/users/', newObj);
         window.location='/';
@@ -70,6 +72,11 @@ const Register = () => {
                             <div className="input-box">
                                 <span className="details">Password</span>
                                 <input type="password" placeholder="Password" name="password" value={regform.password} onChange={handleChange}/>
+                            </div>
+
+                            <div className="input-box">
+                                <span className="details">Phone Number</span>
+                                <input type="text" placeholder="Phone Number" name="phone number" value={regform.phone_number} onChange={handleChange}/>
                             </div>
                             <div className="input-box">
                                 <span className="details">City</span>

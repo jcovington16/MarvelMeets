@@ -19,7 +19,7 @@ function NavBar({ user }) {
                     </li>
                     {user && <div>
                         <li className="dropdown">
-                            <a href="true" className="dropdown-toggle"><span>{user.firstname}</span></a>
+                            <a href="/profile_page" className="dropdown-toggle"><span>{user.firstname}</span></a>
                             <ul className="dropdown-menu">
                                 <li>
                                     <a href="/events">Add Event</a>

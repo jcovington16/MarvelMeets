@@ -32,6 +32,7 @@ const Heroes = ({user}) => {
                 const id = res.data.data.results[0].id
                 axios.get(`${url2}${id}/comics?limit=15&ts=${ts}&apikey=${pk}&hash=${hash}`)
                     .then(res => {
+                        console.log(res.data.data.results);
                         setCharacterComics(res.data.data.results)
                     })
             })
@@ -71,11 +72,11 @@ const Heroes = ({user}) => {
 
                     <div className="col-md-4">
                         <div className="card" style={{width: '30rem'}}>
-                            <img src={`${characterComics[1].images[0].path}.${characterComics[1].images[0].extension}`} className="card-img-top" alt="Comic Pic"/>
+                            <img src={`${characterComics[0].images[0].path}.${characterComics[0].images[0].extension}`} className="card-img-top" alt="Comic Pic"/>
                             <div className="card-body">
-                                <h5 className="card-title">{characterComics[1].title}</h5>
-                                <p className="card-text">{characterComics[1].description}</p>
-                                <a href={characterComics[1].urls[0].url} className="btn btn-primary">See Comic Book</a>
+                                <h5 className="card-title">{characterComics[0].title}</h5>
+                                <p className="card-text">{characterComics[0].description}</p>
+                                <a href={characterComics[0].urls[0].url} className="btn btn-primary">See Comic Book</a>
                             </div>
                         </div>
                     </div>

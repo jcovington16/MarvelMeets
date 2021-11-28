@@ -11,6 +11,7 @@ import Heroes from './components/Heroes/Heroes';
 import Logout from './components/Logout/Logout';
 import EventPage from './components/EventPage/EventPage';
 import Profile from './components/Profile/Profile';
+import EditProfile from './components/EditProfile/EditProfile';
 
 
 
@@ -44,6 +45,7 @@ function App() {
         <Route path='/logout' element={<Logout/>} />
         <Route path='/event_page' element={<EventPage user={user}/>} />
         <Route path='/profile_page' element={<Profile user={user}/>} />
+        <Route path='/edit_profile' element={<EditProfile user={user} />} />
 
 
       </Routes>

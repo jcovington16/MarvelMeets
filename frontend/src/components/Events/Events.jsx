@@ -23,57 +23,62 @@ const Events = ({user}) => {
     }
 
     const handleGoogleEvent = (info) => {
-        axios.get(`http://localhost:5001/api/events/${info}/event`)
-        .then(res => {
-            setEventInfo(res.data)
-        }, [])
+        try {
+            axios.get(`http://localhost:5001/api/events/${info}/event`)
+                .then(res => {
+                    setEventInfo(res.data)
+            }, [])
 
-        gapi.load('client:auth2', () => {
-            gapi.client.init({
-                apiKey: data['google-key'],
-                client_id: data.clientID,
-                disoveryDocs: discover_docs,
-                scope: scopes
-            })
-
-            let event = {
-                'summary': `${eventInfo.title}`,
-                'location': `${eventInfo.address}`,
-                'description': `${eventInfo.description}`,
-                'start': {
-                    'dateTime': `${eventInfo.event_date}`
-                },
-                'end': {
-                    'dateTime': `${eventInfo.event_date}`
-                },
-                'recurrence': [
-                    'RRULE:FREW=DAILY;COUNT=2'
-                ],
-                'reminders': {
-                    'useDefault': false,
-                    'overrides': [
-                        {'method': 'email', 'minutes': 24 * 60},
-                        {'method': 'popup', 'minutes': 10}
-                    ]
-                }
-
-            }
+            gapi.load('client:auth2', () => {
+                gapi.client.init({
+                    apiKey: data['google-key'],
+                    client_id: data.clientID,
+                    disoveryDocs: discover_docs,
+                    scope: scopes
+                })
 
             gapi.client.load('calendar', 'v3', () => console.log('loading calendar'))
 
             gapi.auth2.getAuthInstance().signIn()
-                
+                .then(() => {
+                    let event = {
+                        'summary': `${eventInfo.title}`,
+                        'location': `${eventInfo.address}`,
+                        'description': `${eventInfo.description}`,
+                        'start': {
+                            'dateTime': `${eventInfo.event_date}`
+                        },
+                        'end': {
+                            'dateTime': `${eventInfo.event_date}`
+                        },
+                        'recurrence': [
+                            'RRULE:FREW=DAILY;COUNT=2'
+                        ],
+                        'reminders': {
+                            'useDefault': false,
+                            'overrides': [
+                                {'method': 'email', 'minutes': 24 * 60},
+                                {'method': 'popup', 'minutes': 10}
+                            ]
+                        }
+        
+                    }
 
-            let request = gapi.client.calendar.events.insert({
-                'calendarId': 'primary',
-                'resource': event,
-            })
+                    let request = gapi.client.calendar.events.insert({
+                        'calendarId': 'primary',
+                        'resource': event,
+                    })
 
-            request.execute(event => {
-                window.open(event.htmlLink)
-            })
-            //request.execute();
+                    request.execute(event => {
+                        window.open(event.htmlLink)
+                    })
+                })
         })
+
+        } catch (err) {
+            
+        }
+        
         
     }
 
@@ -83,7 +88,7 @@ const Events = ({user}) => {
             const infoObj = {_id: info}
             axios.put(`http://localhost:5001/api/events/${user._id}/register`, infoObj)
                 .then(res => {
-                    console.log(res)
+                    alert(res.data);
                 }, [])
             
             handleGoogleEvent(info);
@@ -108,7 +113,7 @@ const Events = ({user}) => {
                                     <p className="card-text">{info.description}</p>
                                     <hr />
                                     <p className="card-text">{info.event_date}</p>
-                                    <a href="True" className="btn btn-primary">See Event Details</a>
+                                    <a href="event_page" className="btn btn-primary">See Event Details</a>
                                     <button className="btn btn-primary" style={{margin: "3px"}} onClick={(e) => handleRegistration(e,info._id)}>Register</button>
                                 </div>
                             </div>
