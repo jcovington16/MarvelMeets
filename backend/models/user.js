@@ -33,9 +33,9 @@ function validateUser(user) {
         firstname: Joi.string().min(4).max(50).required(),
         lastname: Joi.string().min(4).max(50).required(),
         password: Joi.string().min(5).max(1024).required(),
+        phone_number: Joi.string().required(),
         state: Joi.string().required(),
         username: Joi.string().min(5).max(50),
-           
 
     });
     return schema.validate(user);

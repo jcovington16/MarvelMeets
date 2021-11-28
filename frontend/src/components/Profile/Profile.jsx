@@ -5,14 +5,16 @@ import axios from 'axios';
 
 const Profile = ({user}) => {
 
-    const [editForm, setEditForm] = useState({firstname: '', lastname: '', email:'', city:'', state:'', favhero:'', phone_number:''})
-    const [firstname, setFirstName] = useState('');
-    const [lastname, setLastName] = useState('');
-    const [email, setEmail] = useState('');
-    const [city, setCity] = useState('');
-    const [state, setState] = useState('');
-    const [favhero, setFavhero] = useState('');
-    const [phone_number, setPhone] = useState('');
+    const [editForm, setEditForm] = useState({firstname: '', lastname: '', email:'', city:'', state:'', favhero:'', phone_number:'', bio:''})
+    // const [firstname, setFirstName] = useState('');
+    // const [lastname, setLastName] = useState('');
+    // const [email, setEmail] = useState('');
+    // const [city, setCity] = useState('');
+    // const [state, setState] = useState('');
+    // const [favhero, setFavhero] = useState('');
+    // const [phone_number, setPhone] = useState('');
+    // const [profile, setProfile] = useState('');
+    // const [bio, setBio] = useState('');
     const [profile, setProfile] = useState('');
     const [showForm, setShowForm] = useState(false);
 
@@ -22,28 +24,34 @@ const Profile = ({user}) => {
         setShowForm(!showForm)
     }
 
-    const handleEdit = (e) => {
-        e.preventDefault()
-        editProfile()
+    const handleChange = (e) => {
+        setEditForm({
+            ...editForm, [e.target.name]: e.target.value
+        })
+        
     }
 
-    const editProfile = () => {
-        axios.get(url)
-            .then(res => {
-                setEditForm({
-                    firstname: firstname,
-                    lastname: lastname,
-                    email: email,
-                    city: city,
-                    state: state,
-                    favhero: favhero,
-                    phone_number: phone_number
-                })
-            })
-    }
+    // const editProfile = () => {
+    //     axios.get(url)
+    //         .then(res => {
+    //             setEditForm({
+    //                 firstname: firstname,
+    //                 lastname: lastname,
+    //                 email: email,
+    //                 city: city,
+    //                 state: state,
+    //                 favhero: favhero,
+    //                 phone_number: phone_number,
+    //                 bio: bio
+    //             })
+    //         })
+    // }
 
     const postProfile = () => {
         axios.put(url, editForm)
+            .then(res => {
+                window.location = '/profile_page'
+            })
     }
 
 
@@ -77,32 +85,38 @@ const Profile = ({user}) => {
 
                    <h5>Favorite Hero: {profile.favhero}</h5>
 
-                   <button onClick={(e) => {showForms(); handleEdit(e);}}>Edit</button>
+                   <h5>Bio:</h5> <p>{profile.bio}</p>
+
+                   <button onClick={(e) => {showForms()}}>Edit</button>
 
                    {showForm && (
                     <div className="row mt-5">
                         <div className="col-md-3">                    
                             <form>
+                                <div class="form-group">
+                                    <label for="exampleFormControlFile1">Example file input</label>
+                                    <input type="file" class="form-control-file" id="exampleFormControlFile1" />
+                                </div>
                                 <div className="form-group">
                                     <label htmlFor="First Name">First Name</label>
-                                    <input type="text" className="form-control" placeholder="First Name" value={profile.firstname} onChange={(e) => setFirstName(e.target.value)} autoFocus/>
+                                    <input type="text" className="form-control" placeholder="First Name" value={profile.firstname} onChange={handleChange} autoFocus/>
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="Last Name">Last Name</label>
-                                    <input type="text" className="form-control" placeholder="Last Name" value={profile.lastname} onChange={(e) => setLastName(e.target.value)} autoFocus/>
+                                    <input type="text" className="form-control" placeholder="Last Name" value={profile.lastname} onChange={handleChange} autoFocus/>
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="Email">Email</label>
-                                    <input type="text" className="form-control" placeholder="Email" value={profile.email} onChange={(e) => setEmail(e.target.value)} autoFocus/>
+                                    <input type="text" className="form-control" placeholder="Email" value={profile.email} onChange={handleChange} autoFocus/>
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="City">City</label>
-                                    <input type="text" className="form-control" placeholder="City" value={profile.city} onChange={(e) => setCity(e.target.value)} autoFocus/>
+                                    <input type="text" className="form-control" placeholder="City" value={profile.city} onChange={handleChange} autoFocus/>
                                 </div>
                                 <div className="form-row align-items-center">
                                     <div className="col-auto my-1">
                                         <label className="mr-sm-2" htmlFor="State">State</label>                                    
-                                        <select name="state" id="state" value={profile.state} onChange={(e) => setState(e.target.value)}>
+                                        <select name="state" id="state" value={profile.state} onChange={handleChange}>
                                             <option value="Alabama">Alabama</option>
                                             <option value="Alaska">Alaska</option>
                                             <option value="Arizona">Arizona</option>
@@ -159,7 +173,7 @@ const Profile = ({user}) => {
 
                                 <div className="col-auto my-1">
                                 <label className="mr-sm-2" htmlFor="Favorite Hero">Favorite Hero</label>
-                                    <select className="custom-select mr-sm-2" name="favhero" id="favhero" value={profile.favhero} onChange={(e) => setFavhero(e.target.value)}>
+                                    <select className="custom-select mr-sm-2" name="favhero" id="favhero" value={profile.favhero} onChange={handleChange}>
                                     <option value="SpiderMan">Spider Man</option>
                                     <option value="Hulk">Hulk</option>
                                     <option value="Dr. Strange">Dr. Strange</option>
@@ -181,7 +195,12 @@ const Profile = ({user}) => {
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="Phone Number">Phone Number</label>
-                                    <input type="text" className="form-control" placeholder="City" value={profile.phone_number} onChange={(e) => setPhone(e.target.value)} autoFocus/>
+                                    <input type="text" className="form-control" placeholder="City" value={profile.phone_number} onChange={handleChange} autoFocus/>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="exampleFormControlTextarea1"> Bio</label>
+                                    <textarea class="form-control" rows="3" name="bio" value={profile.bio} onChange={handleChange}/>
                                 </div>
                             </form>
 

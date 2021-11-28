@@ -23,9 +23,9 @@ router.post('/', async (req, res) => {
             firstname: req.body.firstname,
             lastname: req.body.lastname,
             password: await bcrypt.hash(req.body.password, salt),
+            phone_number: req.body.phone_number,
             state: req.body.state,
             username: req.body.username,
-            
 
     });
 
@@ -62,11 +62,13 @@ router.put('/:_id/profile', async(req, res) => {
              city: req.body.city,
              state: req.body.state,
              favhero: req.body.favhero,
+             bio: req.body.bio,
+             phone_number: req.body.phone_number,
              photo: req.body.photo}, 
              {new: true}
         );
 
-        if(!user) return res.status(400).send(`The user with id ${req.params.id} does not exist.`)
+        if(!user) return res.status(400).send(`The user with id ${req.params._id} does not exist.`)
         await user.save();
         return res.send(user);
 

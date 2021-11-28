@@ -76,7 +76,7 @@ const Register = () => {
 
                             <div className="input-box">
                                 <span className="details">Phone Number</span>
-                                <input type="text" placeholder="Phone Number" name="phone number" value={regform.phone_number} onChange={handleChange}/>
+                                <input type="text" placeholder="Phone Number" name="phone_number" value={regform.phone_number} onChange={handleChange}/>
                             </div>
                             <div className="input-box">
                                 <span className="details">City</span>

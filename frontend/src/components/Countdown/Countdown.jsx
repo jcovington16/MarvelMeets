@@ -5,6 +5,7 @@ const Countdown = () => {
 
     const [mcumovie, setMCUMovie] = useState();
     const [mcuDate, setMCUDate] = useState();
+    const [timeLeft, setTimeLeft] = useState();
 
     useEffect(() => {
         axios.get('https://www.whenisthenextmcufilm.com/api')
@@ -15,22 +16,29 @@ const Countdown = () => {
             })
     }, [])
 
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setTimeLeft(count);
+        }, 1000);
+        return () => clearTimeout(timer);
+    },);
+
     const count = setInterval(() => {
-        const now = new Date().getTime();
-        const timer = mcuDate - now;
-
-        let days = Math.floor(timer / (1000 * 60 * 60 * 24));
-        let hours = Math.floor((timer % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        let min = Math.floor((timer % (1000 * 60 * 60)) / (1000 * 60));
-        let sec = Math.floor((timer % (1000 * 60)) / 1000);
-
-        let results = `${days}d ${hours}h ${min}m ${sec}s`
+        let now = new Date().getDate();
+        let timer = mcuDate - now;
+        let timeLeft = {};
 
         if (timer < 0) {
-            clearInterval(count)
+            timeLeft = {
+                days: Math.floor(timer / (1000 * 60 * 60 * 24)),
+                hours: Math.floor((timer / (1000 * 60 * 60)) % 24),
+                min: Math.floor((timer / 1000 / 60) % 60),
+                sec: Math.floor((timer / 1000) % 60),
+                
+            }
+            // let results = `${days}d ${hours}h ${min}m ${sec}s`
         }
-
-        return results
+        return timeLeft
     })
 
     return (
@@ -38,6 +46,7 @@ const Countdown = () => {
             <ul className="nav justify-content-center">
                 {mcumovie && <li className="nav-item">
                     <h3>{mcumovie.following_production.title} releases in {mcumovie.following_production.days_until} days!</h3>
+                    {}
                 </li>}
             </ul>  
         </div>

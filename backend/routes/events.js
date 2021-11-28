@@ -1,8 +1,13 @@
 const {Event, validateEvent} = require('../models/event');
 const {User} = require('../models/user');
+const config = require('config')
 const express = require('express');
 const router = express.Router();
 const auth = require('../middleware/auth');
+const twilio_account = config.get('twilio_account')
+const twilio_auth = config.get('twilio_auth')
+const client = require('twilio')(twilio_account, twilio_auth)
+
 
 
 //create an event
@@ -50,10 +55,44 @@ router.put('/:_id/register', async (req, res) => {
         }
 
         await event.save();
+
+        client.messages
+        .create({
+            body: `${event.title} in ${event.address} at ${event.event_date}`,
+            from: '+12086034549',
+            to: user.phone_number
+        })
+        .then(message => console.log(message.sid));
+
         return res.send(event);
 
-    } catch (ex) {
-        return res.status(500).send(`Internal Server Error: ${ex}`)
+    } catch (err) {
+        return res.status(500).send(`Internal Server Error: ${err}`)
+    }
+})
+
+router.get('/:_id/twilio', async (req, res) => {
+
+    try{
+        const event = await Event.findById(req.body._id)
+        const user = await User.findById(req.params._id)
+
+        console.log(`User: ${req.params._id}`)
+        console.log(`Event: ${req.body._id}`)
+
+        client.messages
+            .create({
+                body: `${event.title} in ${event.address} at ${event.event_date}`,
+                from: '+12086034549',
+                to: '7209088516'
+            })
+            .then(message => console.log(message.sid));
+
+        return res.send('Text message sent');
+
+    } catch (err) {
+        console.log('Here')
+        return res.status(500).send(`Internal Server Error ${err}`)
     }
 })
 

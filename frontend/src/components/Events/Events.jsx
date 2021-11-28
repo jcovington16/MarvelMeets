@@ -18,9 +18,9 @@ const Events = ({user}) => {
             })
     }, [])
 
-    const handleTwilio = () => {
-
-    }
+    // const handleTwilio = () => {
+    //     axios.get(`http://localhost:5001/api/events/${user._id}/twilio`, eventInfo._id)
+    // }
 
     const handleGoogleEvent = (info) => {
         try {
@@ -64,6 +64,8 @@ const Events = ({user}) => {
         
                     }
 
+                    //handleTwilio()
+
                     let request = gapi.client.calendar.events.insert({
                         'calendarId': 'primary',
                         'resource': event,
@@ -92,6 +94,7 @@ const Events = ({user}) => {
                 }, [])
             
             handleGoogleEvent(info);
+            
         }
 
         
