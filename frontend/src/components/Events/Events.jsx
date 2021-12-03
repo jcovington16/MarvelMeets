@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import {Link} from 'react-router-dom';
 import axios from 'axios';
 import data from '../../config/Config'
 
@@ -6,28 +7,36 @@ const Events = ({user}) => {
 
     const [eventsInfo, setEvents] = useState([]);
     const [eventInfo, setEventInfo] = useState('');
+
     let gapi = window.gapi;
     let discover_docs = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"];
     let scopes = "https://www.googleapis.com/auth/calendar.events"
 
 
+
     useEffect(() => {
         axios.get('http://localhost:5001/api/events/')
             .then(res => {
-                setEvents(res.data);
+                setEvents(res.data)
+                
             })
     }, [])
 
-    // const handleTwilio = () => {
-    //     axios.get(`http://localhost:5001/api/events/${user._id}/twilio`, eventInfo._id)
-    // }
+
+    const handleDelete = (e,id) => {
+        e.preventDefault()
+        axios.delete(`http://localhost:5001/api/events/${id}`,)
+        window.location = '/home'
+    }
 
     const handleGoogleEvent = (info) => {
         try {
+
             axios.get(`http://localhost:5001/api/events/${info}/event`)
                 .then(res => {
                     setEventInfo(res.data)
             }, [])
+
 
             gapi.load('client:auth2', () => {
                 gapi.client.init({
@@ -64,8 +73,6 @@ const Events = ({user}) => {
         
                     }
 
-                    //handleTwilio()
-
                     let request = gapi.client.calendar.events.insert({
                         'calendarId': 'primary',
                         'resource': event,
@@ -96,8 +103,6 @@ const Events = ({user}) => {
             handleGoogleEvent(info);
             
         }
-
-        
     }
 
 
@@ -116,8 +121,9 @@ const Events = ({user}) => {
                                     <p className="card-text">{info.description}</p>
                                     <hr />
                                     <p className="card-text">{info.event_date}</p>
-                                    <a href="event_page" className="btn btn-primary">See Event Details</a>
-                                    <button className="btn btn-primary" style={{margin: "3px"}} onClick={(e) => handleRegistration(e,info._id)}>Register</button>
+                                    <Link to={`/event_page/${info._id}`} className="btn btn-primary">See Event Details</Link>
+                                    {user._id !== info.userId ? <button className="btn btn-primary" style={{margin: "3px"}} onClick={(e) => handleRegistration(e,info._id)}>Register</button> : ''}
+                                    {user._id === info.userId ? <button className="btn btn-primary" style={{margin: '3px'}} type="submit" onClick={(e) => handleDelete(e, info._id)}>Delete Event</button> : ''}
                                 </div>
                             </div>
                         </div>

@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 const auth = require('../middleware/auth');
 const bcrypt = require('bcrypt');
+const upload = require('../middleware/upload');
 
 
 
@@ -53,8 +54,23 @@ router.get('/:_id/profile', async (req, res) => {
 });
 
 
-router.put('/:_id/profile', async(req, res) => {
-    try{
+router.put('/:_id/profile', upload.single('photo'), async(req, res) => {
+
+    if (req.file) {
+        const user = await User.findByIdAndUpdate(req.params._id, {
+            firstname: req.body.firstname,
+            lastname: req.body.lastname,
+            email: req.body.email,
+            city: req.body.city,
+            state: req.body.state,
+            favhero: req.body.favhero,
+            bio: req.body.bio,
+            phone_number: req.body.phone_number,
+            photo: req.file.buffer.toString('base64'),
+            photo_mimetype: req.file.mimetype
+        })
+        return res.send('Update Successful');
+    } else {
         const user = await User.findByIdAndUpdate(req.params._id,
             {firstname: req.body.firstname,
              lastname: req.body.lastname,
@@ -63,18 +79,16 @@ router.put('/:_id/profile', async(req, res) => {
              state: req.body.state,
              favhero: req.body.favhero,
              bio: req.body.bio,
-             phone_number: req.body.phone_number,
-             photo: req.body.photo}, 
+             phone_number: req.body.phone_number},
              {new: true}
         );
 
         if(!user) return res.status(400).send(`The user with id ${req.params._id} does not exist.`)
-        await user.save();
-        return res.send(user);
 
-    } catch (err) {
-        return res.send(500).send(`Internal Server Error: ${err}`)
+        return res.send('Update Successful');
     }
+
+
 });
 
 module.exports = router;

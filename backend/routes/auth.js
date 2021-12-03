@@ -23,7 +23,7 @@ router.post('/', async (req, res) => {
         return res.send(token);
 
     } catch (ex) {
-    return res.status(500).send(`Internal Server Error: ${ex}`);
+        return res.status(500).send(`Internal Server Error: ${ex}`);
     }
    });
 

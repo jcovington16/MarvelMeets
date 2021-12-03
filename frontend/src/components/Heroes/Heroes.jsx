@@ -26,16 +26,23 @@ const Heroes = ({user}) => {
 
     const handleSearch = (e) => {
         e.preventDefault();
-        axios.get(`${url}name=${character}&ts=${ts}&apikey=${pk}&hash=${hash}`)
-            .then(res => {
-                setCharacterInfo(res.data.data.results[0])
-                const id = res.data.data.results[0].id
-                axios.get(`${url2}${id}/comics?limit=15&ts=${ts}&apikey=${pk}&hash=${hash}`)
-                    .then(res => {
-                        console.log(res.data.data.results);
-                        setCharacterComics(res.data.data.results)
-                    })
-            })
+
+            axios.get(`${url}name=${character}&ts=${ts}&apikey=${pk}&hash=${hash}`)
+                .then(res => {
+                    
+                    try {
+                        setCharacterInfo(res.data.data.results[0])
+                        const id = res.data.data.results[0].id
+                        axios.get(`${url2}${id}/comics?limit=15&ts=${ts}&apikey=${pk}&hash=${hash}`)
+                            .then(res => {
+                                setCharacterComics(res.data.data.results)
+                            })
+                    } catch (err) {
+                        alert('Hero Not Found. Try Again')
+                    }
+
+                })
+
     }
 
     return (
@@ -47,6 +54,7 @@ const Heroes = ({user}) => {
             <div className="row mt-5">
                 <div className="col-md-3"></div>
                 <div className="col-md-6">
+                <h2>Search Your Favorite Hero</h2>
 
                     <form className="form-inline my-sm-0 input-group" onSubmit={handleSearch}>
                         <input className="form-control" type="search" placeholder="Search For Hero" value={character} onChange={handleHeroSearch}/>

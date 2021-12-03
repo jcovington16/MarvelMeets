@@ -1,22 +1,26 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import NavBar from '../NavBar/NavBar';
 import axios from 'axios';
+
+const ProfilePhoto = ({photo_mimetype, photo}) => {
+    const ref = useRef(null)
+
+    useEffect(() => {
+        const imgEl = new Image()
+
+        imgEl.src = `data: ${photo_mimetype}; base64, ` + photo
+        ref.current.appendChild(imgEl)
+    }, [photo, photo_mimetype])
+    return <div ref={ref} style={{width: '100px'}} />
+}
 
 
 const Profile = ({user}) => {
 
-    const [editForm, setEditForm] = useState({firstname: '', lastname: '', email:'', city:'', state:'', favhero:'', phone_number:'', bio:''})
-    // const [firstname, setFirstName] = useState('');
-    // const [lastname, setLastName] = useState('');
-    // const [email, setEmail] = useState('');
-    // const [city, setCity] = useState('');
-    // const [state, setState] = useState('');
-    // const [favhero, setFavhero] = useState('');
-    // const [phone_number, setPhone] = useState('');
-    // const [profile, setProfile] = useState('');
-    // const [bio, setBio] = useState('');
+    const [editForm, setEditForm] = useState({firstname: '', lastname: '', email:'', city:'', state:'', favhero:'', phone_number:'', bio:'', photo: null})
     const [profile, setProfile] = useState('');
     const [showForm, setShowForm] = useState(false);
+    const formData = new FormData();
 
     const url = user ? `http://localhost:5001/api/users/${user._id}/profile` : '';
 
@@ -27,39 +31,40 @@ const Profile = ({user}) => {
     const handleChange = (e) => {
         setEditForm({
             ...editForm, [e.target.name]: e.target.value
-        })
-        
+        })     
     }
 
-    // const editProfile = () => {
-    //     axios.get(url)
-    //         .then(res => {
-    //             setEditForm({
-    //                 firstname: firstname,
-    //                 lastname: lastname,
-    //                 email: email,
-    //                 city: city,
-    //                 state: state,
-    //                 favhero: favhero,
-    //                 phone_number: phone_number,
-    //                 bio: bio
-    //             })
-    //         })
-    // }
+    const handlePhoto = (e) => {
+        setEditForm({
+            ...editForm, photo: e.target.files[0] 
+        })
+    }
 
-    const postProfile = () => {
-        axios.put(url, editForm)
+    const postProfile = (e) => {
+        e.preventDefault()
+        editForm.photo ? formData.append('photo', editForm.photo) : formData.append('oldphoto', profile.photo)
+        !editForm.photo && formData.append('mimetype', profile.photo_mimetype)
+
+        formData.append('firstname', editForm.firstname)
+        formData.append('lastname', editForm.lastname)
+        formData.append('email', editForm.email)
+        formData.append('city', editForm.city)
+        formData.append('state', editForm.state)
+        formData.append('favhero', editForm.favhero)
+        formData.append('phone_number', editForm.phone_number)
+        formData.append('bio', editForm.bio)
+        axios.put(url, formData)
             .then(res => {
                 window.location = '/profile_page'
             })
     }
 
-
-
     useEffect(() => {
         axios.get(url)
             .then((res) => {
                 setProfile(res.data)
+                const {photo, ...rest} = res.data
+                setEditForm(rest)
             })
             .catch(err => console.log(err))
     }, [url])
@@ -71,13 +76,11 @@ const Profile = ({user}) => {
             </div>
             Profile Page
 
-            {/* <div><a href="/edit_profile">Edit Profile</a></div> */}
-            
-
             {profile && <div className="row mt-5">
            
                 <div className="col-md-6 mt-5">
-                   {/* <img src={test} id="biopic" alt="" /> */}
+
+                    <ProfilePhoto {...profile} />
 
                    <h3 id="name"><strong>{profile.firstname} {profile.lastname}</strong></h3>
 
@@ -92,31 +95,31 @@ const Profile = ({user}) => {
                    {showForm && (
                     <div className="row mt-5">
                         <div className="col-md-3">                    
-                            <form>
-                                <div class="form-group">
-                                    <label for="exampleFormControlFile1">Example file input</label>
-                                    <input type="file" class="form-control-file" id="exampleFormControlFile1" />
+                            <form onSubmit={(e) => postProfile(e)}>
+                                <div className="form-group">
+                                    <label htmlFor="exampleFormControlFile1">Example file input</label>
+                                    <input type="file" className="form-control-file" onChange={handlePhoto}/>
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="First Name">First Name</label>
-                                    <input type="text" className="form-control" placeholder="First Name" value={profile.firstname} onChange={handleChange} autoFocus/>
+                                    <input type="text" className="form-control" placeholder="First Name" name='firstname' value={editForm.firstname} onChange={handleChange} autoFocus/>
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="Last Name">Last Name</label>
-                                    <input type="text" className="form-control" placeholder="Last Name" value={profile.lastname} onChange={handleChange} autoFocus/>
+                                    <input type="text" className="form-control" placeholder="Last Name" name='lastname' value={editForm.lastname} onChange={handleChange} autoFocus/>
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="Email">Email</label>
-                                    <input type="text" className="form-control" placeholder="Email" value={profile.email} onChange={handleChange} autoFocus/>
+                                    <input type="text" className="form-control" placeholder="Email" name='email' value={editForm.email} onChange={handleChange} autoFocus/>
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="City">City</label>
-                                    <input type="text" className="form-control" placeholder="City" value={profile.city} onChange={handleChange} autoFocus/>
+                                    <input type="text" className="form-control" placeholder="City" name='city' value={editForm.city} onChange={handleChange} autoFocus/>
                                 </div>
                                 <div className="form-row align-items-center">
                                     <div className="col-auto my-1">
                                         <label className="mr-sm-2" htmlFor="State">State</label>                                    
-                                        <select name="state" id="state" value={profile.state} onChange={handleChange}>
+                                        <select name="state" id="state" value={editForm.state} onChange={handleChange}>
                                             <option value="Alabama">Alabama</option>
                                             <option value="Alaska">Alaska</option>
                                             <option value="Arizona">Arizona</option>
@@ -173,7 +176,7 @@ const Profile = ({user}) => {
 
                                 <div className="col-auto my-1">
                                 <label className="mr-sm-2" htmlFor="Favorite Hero">Favorite Hero</label>
-                                    <select className="custom-select mr-sm-2" name="favhero" id="favhero" value={profile.favhero} onChange={handleChange}>
+                                    <select className="custom-select mr-sm-2" name="favhero" id="favhero" value={editForm.favhero} onChange={handleChange}>
                                     <option value="SpiderMan">Spider Man</option>
                                     <option value="Hulk">Hulk</option>
                                     <option value="Dr. Strange">Dr. Strange</option>
@@ -195,16 +198,18 @@ const Profile = ({user}) => {
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="Phone Number">Phone Number</label>
-                                    <input type="text" className="form-control" placeholder="City" value={profile.phone_number} onChange={handleChange} autoFocus/>
+                                    <input type="text" className="form-control" placeholder="phone number" name='phone_number' value={editForm.phone_number} onChange={handleChange} autoFocus/>
                                 </div>
 
-                                <div class="form-group">
-                                    <label for="exampleFormControlTextarea1"> Bio</label>
-                                    <textarea class="form-control" rows="3" name="bio" value={profile.bio} onChange={handleChange}/>
+                                <div className="form-group">
+                                    <label htmlFor="exampleFormControlTextarea1"> Bio</label>
+                                    <textarea className="form-control" rows="3" name="bio" value={editForm.bio} onChange={handleChange}/>
                                 </div>
+
+                                <button type="submit">Update</button>
                             </form>
 
-                            <button onClick={() => postProfile()} type="submit">Update</button>
+                            
                         </div>
         
                         <div className="col-md-6"></div>

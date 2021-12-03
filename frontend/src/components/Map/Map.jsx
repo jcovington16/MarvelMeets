@@ -13,10 +13,15 @@ const Map = ({user}) => {
     const map = useRef(null);
     const [lng, setLng] = useState(0);
     const [lat, setLat] = useState(0);
-    const [zoom, setZoom] = useState(9);
+    const [zoom] = useState(9);
+
+    //const [events, setEvents] = useState();
+    const [longLats, setLongLats] = useState([]);
+
+
 
     useEffect(() => {
-        //if (map.current) return; // initialize map only once
+
         axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${user.city}.json?access_token=${data.mapBoxToken}`)
             .then(res => {
                 setLng(res.data.features[0].center[0])
@@ -28,7 +33,34 @@ const Map = ({user}) => {
             center: [lng, lat],
             zoom: zoom
         });
-    });
+
+        // if(longLats.length >= 1) {
+        //     let marker = new mapboxgl.Marker()
+        //     .setLngLat([parseInt(longLats[1].lng), parseInt(longLats[1].lat)])
+        //     .addTo(map);
+        // }
+
+    
+
+    },);
+
+    useEffect(() => {
+        axios.get('http://localhost:5001/api/events/')
+            .then(res => {
+                console.log(res.data)
+                setLongLats(res.data)
+            })
+
+    }, [])
+
+    // useEffect(() => {
+    //     if(longLats.length > 0) {
+
+    //     console.log(longLats[1].lng)
+
+    // },[longLats])
+
+
 
     return (
         <div>

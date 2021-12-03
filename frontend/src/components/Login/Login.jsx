@@ -23,8 +23,8 @@ const Login = () => {
                 localStorage.setItem('token', responseData);
                 window.location='/home';              
             })
-            
     }
+
     return (
         <div className="container">
             <div className="login__container">

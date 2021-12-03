@@ -16,6 +16,7 @@ const userSchema = new mongoose.Schema({
     dateJoined: {type: Date, default: Date.now()},
     phone_number: {type: String, default: ''},
     photo: {data: Buffer, contentType: String},
+    photo_mimetype: {type: String},
     bio: {type: String, default: ''}
 })
 

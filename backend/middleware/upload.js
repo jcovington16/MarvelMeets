@@ -1,23 +1,26 @@
 const multer = require("multer");
 const config = require('config');
-const {GridFsStorage} = require("multer-gridfs-storage");
 
-const storage = new GridFsStorage({
-    url: config.get('MongoURI'),
-    options: {useNewUrlParser: true, useUnifiedTopology: true},
-    file: (req, file) => {
-        const match = ["image/png", "image/jpeg"];
+//const {GridFsStorage} = require("multer-gridfs-storage");
 
-        if (match.indexOc(file.mimetype) === -1) {
-            const filename = `${Date.now()}-any-name-${file.originalname}`;
-            return filename;
-        }
+// const storage = new GridFsStorage({
+//     url: config.get('MongoURI'),
+//     options: {useNewUrlParser: true, useUnifiedTopology: true},
+//     file: (req, file) => {
+//         const match = ["image/png", "image/jpeg"];
 
-        return {
-            bucketName: "photos",
-            filename: `${Date.now()}-any-name-${file.originalname}`,
-        };
-    },
-});
+//         if (match.indexOc(file.mimetype) === -1) {
+//             const filename = `${Date.now()}-any-name-${file.originalname}`;
+//             return filename;
+//         }
+
+//         return {
+//             bucketName: "photos",
+//             filename: `${Date.now()}-any-name-${file.originalname}`,
+//         };
+//     },
+// });
+
+const storage = multer.memoryStorage()
 
 module.exports = multer({ storage });

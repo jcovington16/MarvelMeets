@@ -6,7 +6,10 @@ const router = express.Router();
 const auth = require('../middleware/auth');
 const twilio_account = config.get('twilio_account')
 const twilio_auth = config.get('twilio_auth')
-const client = require('twilio')(twilio_account, twilio_auth)
+const twilio = require('twilio')
+const client = new twilio(twilio_account, twilio_auth)
+const mapbox = config.get('mapBoxToken')
+const axios = require('axios')
 
 
 
@@ -22,6 +25,7 @@ router.post('/:_id/events', async (req, res) => {
             city: req.body.city,
             description: req.body.description,
             event_date: req.body.event_date,
+            state: req.body.state,
             title: req.body.title,
             topic: req.body.topic,
             userId: req.params._id,
@@ -37,11 +41,40 @@ router.post('/:_id/events', async (req, res) => {
     }
 })
 
+//get lng/lat from event city/address
+router.get('/location/:_id', async (req, res) => {
+    try {
+        const event = await Event.findById(req.params._id)
+
+        await axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${event.city}.json?access_token=${mapbox}`)
+            .then(res => {
+                event.lng = res.data.features[0].center[0]
+                event.lat = res.data.features[0].center[1]
+            })
+
+        await event.save();
+
+        res.send(event);
+
+    } catch (err) {
+        return res.status(500).send(`Internal Server Error: ${err}`)
+    }
+})
+
+
 //register for event
 router.put('/:_id/register', async (req, res) => {
     try{
         const event = await Event.findById(req.body._id)
         const user = await User.findById(req.params._id)
+
+        await client.messages
+        .create({
+            body: `${event.title} in ${event.address} at ${event.event_date}`,
+            from: '+12086034549',
+            to: user.phone_number
+        })
+        .then(message => console.log(message.sid));
 
         if(user._id === event.userId) {
             return res.send('You can register for your own event');
@@ -56,14 +89,6 @@ router.put('/:_id/register', async (req, res) => {
 
         await event.save();
 
-        client.messages
-        .create({
-            body: `${event.title} in ${event.address} at ${event.event_date}`,
-            from: '+12086034549',
-            to: user.phone_number
-        })
-        .then(message => console.log(message.sid));
-
         return res.send(event);
 
     } catch (err) {
@@ -71,27 +96,26 @@ router.put('/:_id/register', async (req, res) => {
     }
 })
 
+
 router.get('/:_id/twilio', async (req, res) => {
 
     try{
-        const event = await Event.findById(req.body._id)
-        const user = await User.findById(req.params._id)
+        const event = await Event.findById(req.params._id)
+        const user = await User.findById(req.body._id)
+        console.log(user)
 
-        console.log(`User: ${req.params._id}`)
-        console.log(`Event: ${req.body._id}`)
-
-        client.messages
+       await client.messages
             .create({
                 body: `${event.title} in ${event.address} at ${event.event_date}`,
                 from: '+12086034549',
-                to: '7209088516'
+                to: user.phone_number
             })
             .then(message => console.log(message.sid));
 
         return res.send('Text message sent');
 
     } catch (err) {
-        console.log('Here')
+        
         return res.status(500).send(`Internal Server Error ${err}`)
     }
 })
@@ -129,11 +153,28 @@ router.get('/:_id/event', async (req, res) => {
 })
 
 
+//search for events by city
+router.get('/:city/cityevent', async (req, res) => {
+    try {
+        const events = await Event.find({city: req.params.city})
+
+        if(!events) {
+            return res.status(400).send(`No Events in this area`);
+        } else {
+            return res.send(events)
+        }
+
+    } catch(err) {
+        return res.status(500).send(`Internal Server Error: ${err}`)
+    }
+})
+
+
 
 //delete event only by original user who made the post
-router.delete('/', async(req, res) => {
+router.delete('/:_id', async(req, res) => {
     try {
-        const event = await Event.findOneAndDelete(req.body._id);
+        const event = await Event.findByIdAndDelete(req.params._id);
 
         if(!event) {
             return res.status(400).send('No Events to delete');

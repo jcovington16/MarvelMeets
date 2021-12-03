@@ -26,7 +26,6 @@ const Register = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(regform);
         const newObj = {
             firstname:regform.firstname,
             lastname: regform.lastname,
