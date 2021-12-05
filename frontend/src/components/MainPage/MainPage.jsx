@@ -13,7 +13,7 @@ const MainPage = ({user}) => {
         city: ""
     })
     const [searchResults, setSearchResults] = useState();
-    const [showResults, setShowResults] = useState(false);
+    //const [showResults, setShowResults] = useState(false);
 
 
     const handleSearchForm= (e) => {
@@ -22,9 +22,9 @@ const MainPage = ({user}) => {
         })
     }
 
-    const showInfo = () => {
-        setShowResults(!showResults)
-    }
+    // const showInfo = () => {
+    //     setShowResults(!showResults)
+    // }
 
     const handleSubmit = (e) => {
         e.preventDefault();

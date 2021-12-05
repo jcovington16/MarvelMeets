@@ -4,15 +4,15 @@ import axios from 'axios';
 const Countdown = () => {
 
     const [mcumovie, setMCUMovie] = useState();
-    const [mcuDate, setMCUDate] = useState();
+    //const [mcuDate, setMCUDate] = useState();
     //const [timeLeft, setTimeLeft] = useState();
 
     useEffect(() => {
         axios.get('https://www.whenisthenextmcufilm.com/api')
             .then(res => {
                 setMCUMovie(res.data);
-                const date = new Date(res.data.following_production.release_date).toGMTString()
-                setMCUDate(date)
+                //const date = new Date(res.data.following_production.release_date).toGMTString()
+                //setMCUDate(date)
             })
     }, [])
 
@@ -46,7 +46,6 @@ const Countdown = () => {
             <ul className="nav justify-content-center">
                 {mcumovie && <li className="nav-item">
                     <h3>{mcumovie.following_production.title} releases in {mcumovie.following_production.days_until} days!</h3>
-                    {mcuDate}
                 </li>}
             </ul>  
         </div>

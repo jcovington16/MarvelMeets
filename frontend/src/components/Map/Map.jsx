@@ -16,7 +16,7 @@ const Map = ({user}) => {
     const [zoom] = useState(9);
 
     //const [events, setEvents] = useState();
-    const [longLats, setLongLats] = useState([]);
+    //const [longLats, setLongLats] = useState([]);
 
 
 
@@ -44,21 +44,14 @@ const Map = ({user}) => {
 
     },);
 
-    useEffect(() => {
-        axios.get('http://localhost:5001/api/events/')
-            .then(res => {
-                console.log(res.data)
-                setLongLats(res.data)
-            })
-
-    }, [])
-
     // useEffect(() => {
-    //     if(longLats.length > 0) {
+    //     axios.get('http://localhost:5001/api/events/')
+    //         .then(res => {
+    //             console.log(res.data)
+    //             setLongLats(res.data)
+    //         })
 
-    //     console.log(longLats[1].lng)
-
-    // },[longLats])
+    // }, [])
 
 
 
