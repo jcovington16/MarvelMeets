@@ -71,8 +71,8 @@ const Heroes = ({user}) => {
                         <img src={`${characterInfo.thumbnail.path}.${characterInfo.thumbnail.extension}`} alt="Hero Pic" />
                     </div>
 
-                    <div className="col-md-6">
-                        <p>{characterInfo.description}</p>
+                    <div className="col-md-6 border border-primary" >
+                        <p >{characterInfo.description}</p>
                     </div>
                 </div>
                 

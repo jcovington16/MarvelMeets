@@ -24,7 +24,7 @@ const Events = ({user}) => {
 
 
     const handleDelete = (e,id) => {
-        e.preventDefault()
+        e.preventDefault();
         axios.delete(`http://localhost:5001/api/events/${id}`,)
         window.location = '/home'
     }
