@@ -38,6 +38,7 @@ const Register = () => {
             phone_number: regform.phone_number}
 
         axios.post('http://localhost:5001/api/users/', newObj);
+        console.log(newObj)
         window.location='/';
     }
 
