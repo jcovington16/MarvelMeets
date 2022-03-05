@@ -4,7 +4,7 @@ module.exports={
     "user-name": process.env.USERNAME,
     "url": process.env.URL,
     "MongoURI": process.env.MONGOURI,
-    "jwtSecret" : process.env.JTWSECRET,
+    "jwtSecret" : process.env.JWT_SECRET,
     "mapBoxToken": process.env.MAPBOXTOKEN,
     "twilio_account": process.env.TWILIO_ACCOUNT,
     "twilio_auth": process.env.TWILIO_AUTH
