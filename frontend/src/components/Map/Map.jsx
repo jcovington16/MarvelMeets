@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState }  from "react";
 import mapboxgl from "mapbox-gl";
 import './Map.css';
 import data from '../../config/Config';
-import axios from 'axios';
+import marvelMeets from '../../api';
 
 
 const Map = ({user}) => {
@@ -22,7 +22,7 @@ const Map = ({user}) => {
 
     useEffect(() => {
 
-        axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${user.city}.json?access_token=${data.mapBoxToken}`)
+        marvelMeets.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${user.city}.json?access_token=${data.mapBoxToken}`)
             .then(res => {
                 setLng(res.data.features[0].center[0])
                 setLat(res.data.features[0].center[1])
@@ -45,7 +45,7 @@ const Map = ({user}) => {
     },);
 
     // useEffect(() => {
-    //     axios.get('/api/events/')
+    //     marvelMeets.get('/api/events/')
     //         .then(res => {
     //             console.log(res.data)
     //             setLongLats(res.data)

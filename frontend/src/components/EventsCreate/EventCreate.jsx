@@ -1,4 +1,4 @@
-import axios from 'axios';
+import marvelMeets from '../../api';
 import React, {useState, useEffect} from 'react'
 import NavBar from '../NavBar/NavBar';
 
@@ -24,7 +24,7 @@ const EventsCreate = ({user}) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.post(`/api/events/${user._id}/events`, eventform)
+        marvelMeets.post(`/api/events/${user._id}/events`, eventform)
             .then(res => {
                 setEventID(res.data._id)
             })
@@ -36,7 +36,7 @@ const EventsCreate = ({user}) => {
 
     useEffect(() => {
         if (eventID)
-        axios.get(`/api/events/location/${eventID}`);
+        marvelMeets.get(`/api/events/location/${eventID}`);
     }, [eventID])
 
 

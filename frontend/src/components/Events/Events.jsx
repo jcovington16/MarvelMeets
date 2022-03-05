@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {Link} from 'react-router-dom';
-import axios from 'axios';
+import marvelMeets from '../../api';
 import data from '../../config/Config'
 
 const Events = ({user}) => {
@@ -15,7 +15,7 @@ const Events = ({user}) => {
 
 
     useEffect(() => {
-        axios.get('/api/events/')
+        marvelMeets.get('/api/events/')
             .then(res => {
                 setEvents(res.data)
                 
@@ -25,14 +25,14 @@ const Events = ({user}) => {
 
     const handleDelete = (e,id) => {
         e.preventDefault();
-        axios.delete(`/api/events/${id}`,)
+        marvelMeets.delete(`/api/events/${id}`,)
         window.location = '/home'
     }
 
     const handleGoogleEvent = (info) => {
         try {
 
-            axios.get(`/api/events/${info}/event`)
+            marvelMeets.get(`/api/events/${info}/event`)
                 .then(res => {
                     setEventInfo(res.data)
             }, [])
@@ -95,7 +95,7 @@ const Events = ({user}) => {
         e.preventDefault();
         if(user) {
             const infoObj = {_id: info}
-            axios.put(`/api/events/${user._id}/register`, infoObj)
+            marvelMeets.put(`/api/events/${user._id}/register`, infoObj)
                 .then(res => {
                     alert(res.data);
                 }, [])

@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import axios from 'axios';
+import marvelMeets from '../../api';
 
 const Countdown = () => {
 
@@ -8,7 +8,7 @@ const Countdown = () => {
     //const [timeLeft, setTimeLeft] = useState();
 
     useEffect(() => {
-        axios.get('https://www.whenisthenextmcufilm.com/api')
+        marvelMeets.get('https://www.whenisthenextmcufilm.com/api')
             .then(res => {
                 setMCUMovie(res.data);
                 //const date = new Date(res.data.following_production.release_date).toGMTString()

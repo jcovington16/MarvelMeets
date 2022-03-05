@@ -1,15 +1,18 @@
 import React, {useEffect, useState} from 'react';
 import NavBar from '../NavBar/NavBar';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
+import {marvelMeets} from '../../api'
+
+
 
 const EventPage = ({user}) => {
 
     const eventId = useParams()
     const [eventInfo, setEventInfo] = useState()
 
+
     useEffect(() => {
-        axios.get(`/api/events/${eventId._id}/event`)
+        marvelMeets.get(`/api/events/${eventId._id}/event`)
             .then(res => {
 
                 setEventInfo(res.data)

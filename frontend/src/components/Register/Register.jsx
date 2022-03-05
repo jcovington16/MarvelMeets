@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import axios from 'axios';
+import marvelMeets from '../../api';
 import './Register.css'
 
 
@@ -37,7 +37,7 @@ const Register = () => {
             favhero: regform.favhero,
             phone_number: regform.phone_number}
 
-        axios.post('/api/users/', newObj);
+        marvelMeets.post('/api/users/', newObj);
         console.log(newObj)
         window.location='/';
     }

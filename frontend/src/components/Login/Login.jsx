@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import axios from 'axios';
+import marvelMeets from '../../api';
 import './Login.css';
 
 const Login = () => {
@@ -17,11 +17,11 @@ const Login = () => {
     const handleSubmit = (event) =>  {
         // store the states in the form data
         event.preventDefault();
-        axios.post(`${process.env.REACT_APP_API_URL}/api/auth/`, login)
+        marvelMeets.post(`${process.env.REACT_APP_API_URL}/api/auth/`, login)
             .then (response => {
                 const responseData = response.data
                 localStorage.setItem('token', responseData);
-                //console.log(responseData)
+                console.log(responseData)
                 window.location='/home';              
             })
     }

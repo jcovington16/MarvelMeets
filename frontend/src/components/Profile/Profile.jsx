@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useRef} from 'react';
 import NavBar from '../NavBar/NavBar';
-import axios from 'axios';
+import marvelMeets from '../../api';
 
 const ProfilePhoto = ({photo_mimetype, photo}) => {
     const ref = useRef(null)
@@ -53,14 +53,14 @@ const Profile = ({user}) => {
         formData.append('favhero', editForm.favhero)
         formData.append('phone_number', editForm.phone_number)
         formData.append('bio', editForm.bio)
-        axios.put(url, formData)
+        marvelMeets.put(url, formData)
             .then(res => {
                 window.location = '/profile_page'
             })
     }
 
     useEffect(() => {
-        axios.get(url)
+        marvelMeets.get(url)
             .then((res) => {
                 setProfile(res.data)
                 const {photo, ...rest} = res.data

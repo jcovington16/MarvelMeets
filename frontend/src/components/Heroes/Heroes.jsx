@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import NavBar from '../NavBar/NavBar';
 import data from '../../config/Config';
-import axios from 'axios';
+import marvelMeets from '../../api';
 import './Heroes.css';
 import crypto from 'crypto-js';
 
@@ -27,13 +27,13 @@ const Heroes = ({user}) => {
     const handleSearch = (e) => {
         e.preventDefault();
 
-            axios.get(`${url}name=${character}&ts=${ts}&apikey=${pk}&hash=${hash}`)
+            marvelMeets.get(`${url}name=${character}&ts=${ts}&apikey=${pk}&hash=${hash}`)
                 .then(res => {
                     
                     try {
                         setCharacterInfo(res.data.data.results[0])
                         const id = res.data.data.results[0].id
-                        axios.get(`${url2}${id}/comics?limit=15&ts=${ts}&apikey=${pk}&hash=${hash}`)
+                        marvelMeets.get(`${url2}${id}/comics?limit=15&ts=${ts}&apikey=${pk}&hash=${hash}`)
                             .then(res => {
                                 setCharacterComics(res.data.data.results)
                             })

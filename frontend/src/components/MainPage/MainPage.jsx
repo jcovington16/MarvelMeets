@@ -4,7 +4,7 @@ import NavBar from '../NavBar/NavBar';
 import Countdown from '../Countdown/Countdown';
 import Map from '../Map/Map';
 import Events from '../Events/Events';
-import axios from 'axios';
+import marvelMeets from '../../api';
 
 
 const MainPage = ({user}) => {
@@ -28,7 +28,7 @@ const MainPage = ({user}) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.get(`/api/events/${searchForm.city}/cityevent`)
+        marvelMeets.get(`/api/events/${searchForm.city}/cityevent`)
             .then(res => {
                 setSearchResults(res.data)
             })
