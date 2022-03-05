@@ -21,6 +21,7 @@ const Login = () => {
             .then (response => {
                 const responseData = response.data
                 localStorage.setItem('token', responseData);
+                console.log(responseData)
                 window.location='/home';              
             })
     }
