@@ -1,4 +1,4 @@
-import marvelMeets from '../../api';
+import {marvelMeets} from '../../api';
 import React, {useState, useEffect} from 'react'
 import NavBar from '../NavBar/NavBar';
 

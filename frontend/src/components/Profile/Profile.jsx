@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useRef} from 'react';
 import NavBar from '../NavBar/NavBar';
-import marvelMeets from '../../api';
+import {marvelMeets} from '../../api';
 
 const ProfilePhoto = ({photo_mimetype, photo}) => {
     const ref = useRef(null)

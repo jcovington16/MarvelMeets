@@ -10,7 +10,6 @@ const EventPage = ({user}) => {
     const eventId = useParams()
     const [eventInfo, setEventInfo] = useState()
 
-
     useEffect(() => {
         marvelMeets.get(`/api/events/${eventId._id}/event`)
             .then(res => {

@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import NavBar from '../NavBar/NavBar';
 import data from '../../config/Config';
-import marvelMeets from '../../api';
+import {marvelMeets} from '../../api';
 import './Heroes.css';
 import crypto from 'crypto-js';
 

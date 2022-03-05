@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import marvelMeets from '../../api';
+import {marvelMeets} from '../../api';
 import './Register.css'
 
 

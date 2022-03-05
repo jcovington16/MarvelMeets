@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {Link} from 'react-router-dom';
-import marvelMeets from '../../api';
+import {marvelMeets} from '../../api';
 import data from '../../config/Config'
 
 const Events = ({user}) => {
