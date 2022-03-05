@@ -15,7 +15,7 @@ const Events = ({user}) => {
 
 
     useEffect(() => {
-        axios.get('http://localhost:5001/api/events/')
+        axios.get('process.env.REACT_APP_API_URL/api/events/')
             .then(res => {
                 setEvents(res.data)
                 
@@ -25,14 +25,14 @@ const Events = ({user}) => {
 
     const handleDelete = (e,id) => {
         e.preventDefault();
-        axios.delete(`http://localhost:5001/api/events/${id}`,)
+        axios.delete(`process.env.REACT_APP_API_URL/api/events/${id}`,)
         window.location = '/home'
     }
 
     const handleGoogleEvent = (info) => {
         try {
 
-            axios.get(`http://localhost:5001/api/events/${info}/event`)
+            axios.get(`process.env.REACT_APP_API_URL/api/events/${info}/event`)
                 .then(res => {
                     setEventInfo(res.data)
             }, [])
@@ -95,7 +95,7 @@ const Events = ({user}) => {
         e.preventDefault();
         if(user) {
             const infoObj = {_id: info}
-            axios.put(`http://localhost:5001/api/events/${user._id}/register`, infoObj)
+            axios.put(`process.env.REACT_APP_API_URL/api/events/${user._id}/register`, infoObj)
                 .then(res => {
                     alert(res.data);
                 }, [])

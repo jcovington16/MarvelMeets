@@ -17,7 +17,7 @@ const Login = () => {
     const handleSubmit = (event) =>  {
         // store the states in the form data
         event.preventDefault();
-        axios.post('http://localhost:5001/api/auth/', login)
+        axios.post('process.env.REACT_APP_API_URL/api/auth/', login)
             .then (response => {
                 const responseData = response.data
                 localStorage.setItem('token', responseData);

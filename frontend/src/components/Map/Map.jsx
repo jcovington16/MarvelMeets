@@ -45,7 +45,7 @@ const Map = ({user}) => {
     },);
 
     // useEffect(() => {
-    //     axios.get('http://localhost:5001/api/events/')
+    //     axios.get('process.env.REACT_APP_API_URL/api/events/')
     //         .then(res => {
     //             console.log(res.data)
     //             setLongLats(res.data)

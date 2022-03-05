@@ -9,7 +9,7 @@ const EventPage = ({user}) => {
     const [eventInfo, setEventInfo] = useState()
 
     useEffect(() => {
-        axios.get(`http://localhost:5001/api/events/${eventId._id}/event`)
+        axios.get(`process.env.REACT_APP_API_URL/api/events/${eventId._id}/event`)
             .then(res => {
 
                 setEventInfo(res.data)

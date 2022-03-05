@@ -24,7 +24,7 @@ const EventsCreate = ({user}) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.post(`http://localhost:5001/api/events/${user._id}/events`, eventform)
+        axios.post(`process.env.REACT_APP_API_URL/api/events/${user._id}/events`, eventform)
             .then(res => {
                 setEventID(res.data._id)
             })
@@ -36,7 +36,7 @@ const EventsCreate = ({user}) => {
 
     useEffect(() => {
         if (eventID)
-        axios.get(`http://localhost:5001/api/events/location/${eventID}`);
+        axios.get(`process.env.REACT_APP_API_URL/api/events/location/${eventID}`);
     }, [eventID])
 
 
