@@ -37,7 +37,7 @@ const Register = () => {
             favhero: regform.favhero,
             phone_number: regform.phone_number}
 
-        axios.post('process.env.REACT_APP_API_URL/api/users/', newObj);
+        axios.post('/api/users/', newObj);
         console.log(newObj)
         window.location='/';
     }

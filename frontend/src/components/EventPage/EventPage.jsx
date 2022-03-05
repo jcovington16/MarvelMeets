@@ -9,7 +9,7 @@ const EventPage = ({user}) => {
     const [eventInfo, setEventInfo] = useState()
 
     useEffect(() => {
-        axios.get(`process.env.REACT_APP_API_URL/api/events/${eventId._id}/event`)
+        axios.get(`/api/events/${eventId._id}/event`)
             .then(res => {
 
                 setEventInfo(res.data)

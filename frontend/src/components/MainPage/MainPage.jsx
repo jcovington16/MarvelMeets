@@ -28,7 +28,7 @@ const MainPage = ({user}) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.get(`process.env.REACT_APP_API_URL/api/events/${searchForm.city}/cityevent`)
+        axios.get(`/api/events/${searchForm.city}/cityevent`)
             .then(res => {
                 setSearchResults(res.data)
             })

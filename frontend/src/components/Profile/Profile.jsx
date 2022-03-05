@@ -22,7 +22,7 @@ const Profile = ({user}) => {
     const [showForm, setShowForm] = useState(false);
     const formData = new FormData();
 
-    const url = user ? `process.env.REACT_APP_API_URL/api/users/${user._id}/profile` : '';
+    const url = user ? `/api/users/${user._id}/profile` : '';
 
     const showForms = () => {
         setShowForm(!showForm)
