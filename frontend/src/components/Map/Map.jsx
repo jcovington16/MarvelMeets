@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState }  from "react";
-import mapboxgl from "mapbox-gl/dist/mapbox-gl-csp";
+import mapboxgl from "mapbox-gl";
 import './Map.css';
 import data from '../../config/Config';
 import {marvelMeets} from '../../api';
