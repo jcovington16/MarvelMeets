@@ -4,7 +4,8 @@ import './Map.css';
 import data from '../../config/Config';
 import {marvelMeets} from '../../api';
 
-//mapboxgl.workerClass = require('worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker').default;
+// eslint-disable-next-line import/no-webpack-loader-syntax
+mapboxgl.workerClass = require('worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker').default;
 
 const Map = ({user}) => {
 
