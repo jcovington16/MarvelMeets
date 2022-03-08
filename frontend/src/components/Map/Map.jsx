@@ -36,24 +36,24 @@ const Map = ({user}) => {
             zoom: zoom
         });
 
-        if(longLats.length >= 1) {
-            const marker = new mapboxgl.Marker()
-            marker.setLngLat([parseInt(longLats[1].lng), parseInt(longLats[1].lat)])
-            marker.addTo(map);
-        }
+        // if(longLats.length >= 1) {
+        //     const marker = new mapboxgl.Marker()
+        //     marker.setLngLat([parseInt(longLats[1].lng), parseInt(longLats[1].lat)])
+        //     marker.addTo(map);
+        // }
 
     
 
     },);
 
-    useEffect(() => {
-        marvelMeets.get('/api/events/')
-            .then(res => {
-                console.log(res.data)
-                setLongLats(res.data)
-            })
+    // useEffect(() => {
+    //     marvelMeets.get('/api/events/')
+    //         .then(res => {
+    //             console.log(res.data)
+    //             setLongLats(res.data)
+    //         })
 
-    }, [])
+    // }, [])
 
 
 
