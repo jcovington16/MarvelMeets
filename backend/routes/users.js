@@ -57,7 +57,7 @@ router.get('/:_id/profile', async (req, res) => {
 router.put('/:_id/profile', upload.single('photo'), async(req, res) => {
 
     if (req.file) {
-        const user = await User.findByIdAndUpdate(req.params._id, {
+        const {password,...user}  = await User.findByIdAndUpdate(req.params._id, {
             firstname: req.body.firstname,
             lastname: req.body.lastname,
             email: req.body.email,
@@ -69,9 +69,9 @@ router.put('/:_id/profile', upload.single('photo'), async(req, res) => {
             photo: req.file.buffer.toString('base64'),
             photo_mimetype: req.file.mimetype
         })
-        return res.send('Update Successful');
+        return res.json(user);
     } else {
-        const user = await User.findByIdAndUpdate(req.params._id,
+        const {_doc: { password, ...user}} = await User.findByIdAndUpdate(req.params._id,
             {firstname: req.body.firstname,
              lastname: req.body.lastname,
              email: req.body.email,
@@ -84,8 +84,7 @@ router.put('/:_id/profile', upload.single('photo'), async(req, res) => {
         );
 
         if(!user) return res.status(400).send(`The user with id ${req.params._id} does not exist.`)
-
-        return res.send('Update Successful');
+        return res.json(user)
     }
 
 

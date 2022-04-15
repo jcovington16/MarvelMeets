@@ -12,7 +12,7 @@ const eventSchema = new mongoose.Schema({
     address: {type: String},
     attendees: {type: Number, default: 0},
     event_date: {type: Date},
-    created: {type: Date, default: Date.now()},
+    created: {type: Date, default: Date.now().format},
     user_list: {type: [], default: []},
     lng: {type: String, required: false},
     lat: {type: String, required: false}
@@ -26,7 +26,7 @@ function validateEvent(event) {
         address: Joi.string().required(),
         city: Joi.string().required(),
         description: Joi.string(),
-        event_date: Joi.date(),
+        event_date: Joi.date().format("DD/MM/YYYY"),
         state: Joi.string().required(),
         title: Joi.string().required().min(4).max(100),
         topic: Joi.string().required().min(4).max(100),

@@ -175,6 +175,7 @@ router.get('/:city/cityevent', async (req, res) => {
 router.delete('/:_id', async(req, res) => {
     try {
         const event = await Event.findByIdAndDelete(req.params._id);
+        console.log(event)
 
         if(!event) {
             return res.status(400).send('No Events to delete');
