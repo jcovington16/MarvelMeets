@@ -1,7 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import {Link} from 'react-router-dom';
-import {marvelMeets} from '../../api';
-import data from '../../config/Config'
+import axios from 'axios';
+import { marvelMeets } from '../../api';
+import data from '../../config/Config';
+import { formatDistanceToNow, format } from 'date-fns';
 
 const Events = ({user}) => {
 
@@ -15,24 +17,23 @@ const Events = ({user}) => {
 
 
     useEffect(() => {
-        marvelMeets.get('/api/events/')
+        marvelMeets.get('http://localhost:5001/api/events/')
             .then(res => {
                 setEvents(res.data)
                 
             })
     }, [])
 
-
     const handleDelete = (e,id) => {
-        e.preventDefault();
-        marvelMeets.delete(`/api/events/${id}`,)
+        e.preventDefault()
+        marvelMeets.delete(`http://localhost:5001/api/events/${id}`,)
         window.location = '/home'
     }
 
     const handleGoogleEvent = (info) => {
         try {
 
-            marvelMeets.get(`/api/events/${info}/event`)
+            marvelMeets.get(`http://localhost:5001/api/events/${info}/event`)
                 .then(res => {
                     setEventInfo(res.data)
             }, [])
@@ -95,7 +96,7 @@ const Events = ({user}) => {
         e.preventDefault();
         if(user) {
             const infoObj = {_id: info}
-            marvelMeets.put(`/api/events/${user._id}/register`, infoObj)
+            axios.put(`http://localhost:5001/api/events/${user._id}/register`, infoObj)
                 .then(res => {
                     alert(res.data);
                 }, [])
@@ -106,30 +107,38 @@ const Events = ({user}) => {
     }
 
 
-    return (
-        <div className="mt-5 justify-content-center">
-            <h2>Latest Events</h2>
 
-            {eventsInfo.map((info) => {
-                return (
-                    <div className="row mt-4" key={info._id} style={{margin: "5px"}}>
-                         <div className="col-md-3">
-                            <div className="card" style={{width: '20rem'}}>
-                                <img src="..." alt="..." className="card-img-top" />
-                                <div className="card-body">
-                                    <h5 className="card-title">{info.title}</h5>
-                                    <p className="card-text">{info.description}</p>
-                                    <hr />
-                                    <p className="card-text">{info.event_date}</p>
-                                    <Link to={`/event_page/${info._id}`} className="btn btn-primary">See Event Details</Link>
-                                    {user._id !== info.userId ? <button className="btn btn-primary" style={{margin: "3px"}} onClick={(e) => handleRegistration(e,info._id)}>Register</button> : ''}
-                                    {user._id === info.userId ? <button className="btn btn-primary" style={{margin: '3px'}} type="submit" onClick={(e) => handleDelete(e, info._id)}>Delete Event</button> : ''}
+
+    return (
+        <div className="mt-5">
+            <div className='text-center'>
+                <h2>Latest Events</h2>
+            </div>
+            
+
+            <div className='d-flex flex-wrap mx-auto justify-content-center'>
+                {eventsInfo.map((info) => {
+                    return (
+                        
+                        <div className="mt-4" key={info._id} style={{margin: "5px"}}>
+                            <div className="col-md-3">
+                                <div className="card" style={{width: '20rem'}}>
+                                    <div className="card-body">
+                                        <h5 className="card-title">{info.title}</h5>
+                                        <p className="card-text">{info.description}</p>
+                                        <hr />
+                                        <p className="card-text">Event { formatDistanceToNow(new Date(info.event_date), {addSuffix: true})}</p>
+                                        <Link to={`/event_page/${info._id}`} className="btn btn-primary">See Event Details</Link>
+                                        {user._id !== info.userId ? <button className="btn btn-primary" style={{margin: "3px"}} onClick={(e) => handleRegistration(e,info._id)}>Register</button> : ''}
+                                        {user._id === info.userId ? <button className="btn btn-primary" style={{margin: '3px'}} type="submit" onClick={(e) => handleDelete(e, info._id)}>Delete Event</button> : ''}
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                </div>
-                )
-            })}
+                    
+                    )
+                })}
+            </div>
         </div>
     )
 }

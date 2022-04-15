@@ -15,14 +15,14 @@ const ProfilePhoto = ({photo_mimetype, photo}) => {
 }
 
 
-const Profile = ({user}) => {
+const Profile = ({user, setUser}) => {
 
     const [editForm, setEditForm] = useState({firstname: '', lastname: '', email:'', city:'', state:'', favhero:'', phone_number:'', bio:'', photo: null})
     const [profile, setProfile] = useState('');
     const [showForm, setShowForm] = useState(false);
     const formData = new FormData();
 
-    const url = user ? `/api/users/${user._id}/profile` : '';
+    const url = user ? `api/users/${user._id}/profile` : '';
 
     const showForms = () => {
         setShowForm(!showForm)
@@ -55,11 +55,13 @@ const Profile = ({user}) => {
         formData.append('bio', editForm.bio)
         marvelMeets.put(url, formData)
             .then(res => {
+                setUser(res.data)
                 window.location = '/profile_page'
             })
     }
 
     useEffect(() => {
+        console.log(url)
         marvelMeets.get(url)
             .then((res) => {
                 setProfile(res.data)

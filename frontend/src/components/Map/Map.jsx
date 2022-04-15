@@ -17,8 +17,8 @@ const Map = ({user}) => {
     const [lat, setLat] = useState(0);
     const [zoom] = useState(9);
 
-    const [events, setEvents] = useState();
-    const [longLats, setLongLats] = useState([]);
+    // const [events, setEvents] = useState();
+    // const [longLats, setLongLats] = useState([]);
 
 
 
@@ -33,7 +33,7 @@ const Map = ({user}) => {
             container: mapContainer.current,
             style: 'mapbox://styles/mapbox/streets-v11',
             center: [lng, lat],
-            zoom: zoom
+            zoom
         });
 
         // if(longLats.length >= 1) {
@@ -44,7 +44,7 @@ const Map = ({user}) => {
 
     
 
-    },);
+    }, [lat,lng, user.city, zoom]);
 
     // useEffect(() => {
     //     marvelMeets.get('/api/events/')

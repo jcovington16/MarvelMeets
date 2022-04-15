@@ -30,7 +30,7 @@ function App() {
     }
   }, []);
 
-  return (
+  return user ? (
     <div className="container-fluid">
       
       <Routes>
@@ -42,11 +42,11 @@ function App() {
         <Route path='/heroes' element={<Heroes user={user}/>} />
         <Route path='/logout' element={<Logout/>} />
         <Route path='/event_page/:_id' element={<EventPage user={user}/>} />
-        <Route path='/profile_page' element={<Profile user={user}/>} />
+        <Route path='/profile_page' element={<Profile user={user} setUser={setUser}/>} />
 
       </Routes>
     </div>
-  );
+  ) : 'loading';
 }
 
 export default App;

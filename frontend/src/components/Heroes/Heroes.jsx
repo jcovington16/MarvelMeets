@@ -66,13 +66,13 @@ const Heroes = ({user}) => {
             </div>
 
             {characterInfo && <div>
-                <div className="row mt-5">
-                    <div className="col-md-6">
+                <div className="row mt-4">
+                    <div className="col-md-6" id="thumbnail">
                         <img src={`${characterInfo.thumbnail.path}.${characterInfo.thumbnail.extension}`} alt="Hero Pic" />
                     </div>
 
-                    <div className="col-md-6 border border-primary" >
-                        <p >{characterInfo.description}</p>
+                    <div className="col-md-3 border border-primary description" id="description" >
+                        <p>{characterInfo.description}</p>
                     </div>
                 </div>
                 
@@ -80,7 +80,7 @@ const Heroes = ({user}) => {
 
                     <div className="col-md-4">
                         <div className="card" style={{width: '30rem'}}>
-                            <img src={`${characterComics[0].images[0].path}.${characterComics[0].images[0].extension}`} className="card-img-top" alt="Comic Pic"/>
+                            {characterComics[0].images.length>0 &&<img src={`${characterComics[0].images[0].path}.${characterComics[0].images[0].extension}`} className="card-img-top" alt="Comic Pic"/>}
                             <div className="card-body">
                                 <h5 className="card-title">{characterComics[0].title}</h5>
                                 <p className="card-text">{characterComics[0].description}</p>
