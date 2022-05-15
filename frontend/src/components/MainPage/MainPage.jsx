@@ -58,7 +58,7 @@ const MainPage = ({user}) => {
                                     <div className="event__details">
         
                                         <div className="input-box">
-                                            <span className="details">Search By City </span>
+                                            <span className="details">Event Search </span>
                                             <input type="text" placeholder="City" name="city" onChange={handleSearchForm}/>
                                         </div>
 
