@@ -18,9 +18,11 @@ function App() {
   const [user, setUser] = useState('');
 
   useEffect(() => {
+    localStorage.removeItem('token')
     const jwt = localStorage.getItem('token');
 
     try {
+
       const decode = jwtDecode(jwt);
       setUser(decode);
       console.log(decode)
@@ -30,7 +32,6 @@ function App() {
     }
   }, []);
 
-  return user ? (
     <div className="container-fluid">
       
       <Routes>
@@ -46,7 +47,6 @@ function App() {
 
       </Routes>
     </div>
-  ) : 'loading';
 }
 
 export default App;
