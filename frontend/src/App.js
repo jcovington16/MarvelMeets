@@ -30,8 +30,6 @@ function App() {
       console.log(e)
     }
   }, []);
-
-    <div className="container-fluid">
       
       <Routes>
 
@@ -45,7 +43,7 @@ function App() {
         <Route path='/profile_page' element={<Profile user={user} setUser={setUser}/>} />
 
       </Routes>
-    </div>
+
 }
 
 export default App;
