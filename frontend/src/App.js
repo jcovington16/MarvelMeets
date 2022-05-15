@@ -18,7 +18,6 @@ function App() {
   const [user, setUser] = useState('');
 
   useEffect(() => {
-    localStorage.removeItem('token')
     const jwt = localStorage.getItem('token');
 
     try {
