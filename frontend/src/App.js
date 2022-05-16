@@ -31,7 +31,7 @@ function App() {
     }
   }, []);
 
-    <div className="container-fluid">
+    return (<div className="container-fluid">
       
       <Routes>
 
@@ -46,6 +46,7 @@ function App() {
 
       </Routes>
     </div>
+    )
 }
 
 export default App;
