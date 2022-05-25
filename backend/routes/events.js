@@ -1,45 +1,66 @@
 const {Event, validateEvent} = require('../models/event');
 const {User} = require('../models/user');
-const config = require('config')
+const config = require('config');
 const express = require('express');
 const router = express.Router();
 const auth = require('../middleware/auth');
-const twilio_account = config.get('twilio_account')
-const twilio_auth = config.get('twilio_auth')
-const twilio = require('twilio')
-const client = new twilio(twilio_account, twilio_auth)
-const mapbox = config.get('mapBoxToken')
-const axios = require('axios')
+const twilio_account = config.get('twilio_account');
+const twilio_auth = config.get('twilio_auth');
+const client = require('twilio')(twilio_account, twilio_auth);
+const mapbox = config.get('mapBoxToken');
+const axios = require('axios');
 
 
 
 //create an event
 router.post('/:_id/events', async (req, res) => {
-    try {
-        const { error } = validateEvent(req.body);
+    const { error } = validateEvent(req.body);
+    console.log('here')
 
-        if(error) return res.status(400).send(`Error: ${error.details[0].message}`);
+    if(error) return res.status(400).send(`Error: ${error.details[0].message}`);
+    console.log('here')
+    const event = await new Event ({
+        address: req.body.address,
+        city: req.body.city,
+        description: req.body.description,
+        event_date: req.body.event_date,
+        state: req.body.state,
+        title: req.body.title,
+        topic: req.body.topic,
+        userId: req.params._id,
+        user_list: req.params.user_list
 
-        const event = await new Event ({
-            address: req.body.address,
-            city: req.body.city,
-            description: req.body.description,
-            event_date: req.body.event_date,
-            state: req.body.state,
-            title: req.body.title,
-            topic: req.body.topic,
-            userId: req.params._id,
-            user_list: req.params.user_list
+    });
 
-        });
-
-        await event.save();
-        return res.send(event);
-
-    } catch (ex) {
-        return res.status(500).send(`Internal Server Error: ${ex}`);
-    }
+    await event.save();
+    console.log('here')
+    return res.send(event);
 })
+
+router.post('/:_id/events', async( req, res ) => {
+    const { error } = validateEvent(req.body);
+    console.log('here')
+
+    if(error) return res.status(400).send(`Error: ${error.details[0].message}`);
+    console.log('here')
+    const event = await new Event ({
+        address: req.body.address,
+        city: req.body.city,
+        description: req.body.description,
+        event_date: req.body.event_date,
+        state: req.body.state,
+        title: req.body.title,
+        topic: req.body.topic,
+        userId: req.params._id,
+        user_list: req.params.user_list
+
+    });
+
+    await event.save();
+    console.log('here')
+    return res.send(event);
+})
+
 
 //get lng/lat from event city/address
 router.get('/location/:_id', async (req, res) => {
@@ -71,17 +92,17 @@ router.put('/:_id/register', async (req, res) => {
         await client.messages
         .create({
             body: `${event.title} in ${event.address} at ${event.event_date}`,
-            from: '+12086034549',
+            from: '+12086034549', // this may need to change due to creds being posted
             to: user.phone_number
         })
         .then(message => console.log(message.sid));
 
         if(user._id === event.userId) {
-            return res.send('You can register for your own event');
+            return res.send('Registering for your own event?');
         }
 
         if(event.user_list.includes(user._id)) {
-            return res.send('User is already registered to Event')
+            return res.send('Already registered to Event')
         } else {
             event.attendees += 1
             event.user_list.push(user._id)

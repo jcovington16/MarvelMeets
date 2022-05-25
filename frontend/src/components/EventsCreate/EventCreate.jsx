@@ -5,13 +5,13 @@ import NavBar from '../NavBar/NavBar';
 const EventsCreate = ({user}) => {
 
     const [eventform, setEventForm] = useState({
-        title: "",
-        topic: "",
-        description: "",
-        city: "",
         address: "",
+        city: "",
+        description: "",
         event_date: "",
         state: "",
+        title: "",
+        topic: "",
     })
 
     const [eventID, setEventID] = useState();

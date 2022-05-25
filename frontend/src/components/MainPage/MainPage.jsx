@@ -2,7 +2,8 @@ import React, {useState} from 'react';
 import './MainPage.css';
 import NavBar from '../NavBar/NavBar';
 import Countdown from '../Countdown/Countdown';
-import Map from '../Map/Map';
+// import Map from '../Map/Map';
+import GoogleMap from '../GoogleMap/GoogleMap';
 import Events from '../Events/Events';
 import {marvelMeets} from '../../api';
 
@@ -90,7 +91,7 @@ const MainPage = ({user}) => {
 
 
                         <div className="mainpage__map mt-4">
-                            <Map user={user}/>
+                            <GoogleMap user={user}/>
                         </div>
 
                         <div className="d-flex justify-content-center">
