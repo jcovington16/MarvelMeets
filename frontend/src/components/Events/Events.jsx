@@ -11,8 +11,8 @@ const Events = ({user}) => {
     const [eventInfo, setEventInfo] = useState('');
 
     let gapi = window.gapi;
-    let discover_docs = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"];
-    let scopes = "https://www.googleapis.com/auth/calendar.events"
+    let DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"];
+    let SCOPES = "https://www.googleapis.com/auth/calendar.events"
 
 
 
@@ -30,6 +30,20 @@ const Events = ({user}) => {
         window.location = '/home'
     }
 
+    const handleRegistration = (e, info) => {
+        e.preventDefault();
+        if(user) {
+            const infoObj = {_id: info}
+            axios.put(`http://localhost:5001/api/events/${user._id}/register`, infoObj)
+                .then(res => {
+                    alert(res.data);
+                }, [])
+            
+            handleGoogleEvent(info);
+            
+        }
+    }
+
     const handleGoogleEvent = (info) => {
         try {
 
@@ -42,15 +56,16 @@ const Events = ({user}) => {
             gapi.load('client:auth2', () => {
                 gapi.client.init({
                     apiKey: data['google-key'],
-                    client_id: data.clientID,
-                    disoveryDocs: discover_docs,
-                    scope: scopes
+                    clientId: data.clientID,
+                    disoveryDocs: DISCOVERY_DOCS,
+                    scope: SCOPES
                 })
 
             gapi.client.load('calendar', 'v3', () => console.log('loading calendar'))
 
             gapi.auth2.getAuthInstance().signIn()
                 .then(() => {
+                    
                     let event = {
                         'summary': `${eventInfo.title}`,
                         'location': `${eventInfo.address}`,
@@ -91,21 +106,6 @@ const Events = ({user}) => {
         
         
     }
-
-    const handleRegistration = (e, info) => {
-        e.preventDefault();
-        if(user) {
-            const infoObj = {_id: info}
-            axios.put(`http://localhost:5001/api/events/${user._id}/register`, infoObj)
-                .then(res => {
-                    alert(res.data);
-                }, [])
-            
-            handleGoogleEvent(info);
-            
-        }
-    }
-
 
 
 

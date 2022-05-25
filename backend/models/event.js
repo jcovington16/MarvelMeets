@@ -26,7 +26,7 @@ function validateEvent(event) {
         address: Joi.string().required(),
         city: Joi.string().required(),
         description: Joi.string(),
-        event_date: Joi.date().format("DD/MM/YYYY"),
+        event_date: Joi.date(),
         state: Joi.string().required(),
         title: Joi.string().required().min(4).max(100),
         topic: Joi.string().required().min(4).max(100),

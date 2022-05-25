@@ -5,6 +5,7 @@ const data = {
     "clientID": process.env.REACT_APP_CLIENTID,
     "clientSecret": process.env.REACT_APP_CLIENT_SECRET,
     "google-key": process.env.REACT_APP_GOOGLE_KEY,
+    "google-map-key": process.env.REACT_APP_GOOGLE_MAP_KEY
 }
 
 export default data;
